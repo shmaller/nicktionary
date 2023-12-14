@@ -131,12 +131,15 @@ and then try again.")
     return wordle
 
 def main():
+    import time
+
     wordle = read_wordle(resource_path('wordle_list.txt'))
 
     print('\n'+'*'*75)
     print("Welcome to Nick's Wordle clone! Try to guess the word!\n\
 This clone replicates Josh Wardle\'s original game.\n\
-It follows his word list and is playable until October 20, 2027.\n\n\
+It loads a new wordle from his original list every day, \n\
+and is playable until October 20, 2027.\n\n\
 HOW TO PLAY:\n\
 Type a five-letter word and hit ENTER.\n\
 The game will evaluate your guess.\n\
@@ -170,10 +173,11 @@ Type 'quit' at any time to end the game.")
         i += 1
     
     if won:
-        input('You won!')
+        print('You won!')
     else:
-        input(f'You lost. The word was {wordle}.')
+        print(f'You lost. The word was {wordle}.')
     
+    time.sleep(2)
     input('\nSee you tomorrow!')
     sys.exit()
 
