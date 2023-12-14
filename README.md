@@ -2,6 +2,8 @@
 
 This is a Python clone of the game Wordle, written by Nicholas Boni, originally made by James Wardle.
 
+The game updates the wordle every day, and will be playable until October 20, 2027.
+
 # Installation
 
 1. Click here: [`build`](https://github.com/shmaller/wordle-clone/tree/main/build#installation).
