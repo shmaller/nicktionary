@@ -4,9 +4,9 @@ This is a Python clone of the game Wordle, written by Nicholas Boni, originally 
 
 # Installation
 
-1. Navigate to `build/wordle.zip`.
-2. Click **Download Raw File**.
-3. Open it from your downloads folder.
+1. Navigate to [`build/wordle.zip`](https://github.com/shmaller/wordle-clone/tree/main/build#installation).
+3. Click **Download Raw File**.
+4. Open it from your downloads folder.
 
 **Note:** On Mac OS, you may get a warning about not being able to open the file because it is from an unknown developer. If so:
 
