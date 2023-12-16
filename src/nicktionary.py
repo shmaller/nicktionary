@@ -1,5 +1,5 @@
 '''
-Wordle clone
+Nicktionary
 Nicholas Boni
 December 12, 2023
 '''
