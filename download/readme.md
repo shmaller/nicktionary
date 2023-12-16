@@ -1,6 +1,6 @@
 # Installation
 
-1. Click `wordle.zip`.
+1. Click `nicktionary.zip`.
 2. Click **Download Raw File**.
 3. Open it from your downloads folder.
 
