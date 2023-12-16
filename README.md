@@ -6,7 +6,7 @@ The game updates the wordle every day, and will be playable until October 20, 20
 
 # Installation
 
-1. Click here: [`download`](https://github.com/shmaller/nicktionary/blob/main/download/nicktionary.zip).
+1. Click here: [`download`](https://github.com/shmaller/nicktionary/tree/main/download).
 2. In that folder, click `nicktionary.zip`.
 3. Click **Download Raw File**.
 4. Open it from your downloads folder.
