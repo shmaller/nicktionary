@@ -1,6 +1,6 @@
 # Installation
 
-1. Click `nicktionary.zip`.
+1. Click [`nicktionary.zip`](https://github.com/shmaller/nicktionary/blob/main/download/nicktionary.zip).
 2. Click **Download Raw File**.
 3. Open it from your downloads folder.
 
