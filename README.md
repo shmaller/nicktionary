@@ -15,3 +15,6 @@ The game updates the wordle every day, and will be playable until October 20, 20
 1. **Control + Click** the file. This should open the "Open anyway?" dialog.
 2. Click **Open**.
 3. Play the game!
+
+# Supported OS
+Currently only works on Mac (I think).
