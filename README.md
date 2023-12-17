@@ -12,7 +12,7 @@ The game updates the wordle every day, and will be playable until October 20, 20
 
 **Note:** On Mac OS, you may get a warning about not being able to open the file because it is from an unknown developer. I swear, it's just me. To open the program:
 
-1. **Control + Click** the file. This should open the "Open anyway?" dialog.
+1. **Control + Click** the file >> click **Open**. This should open the "Open anyway?" dialog.
 2. Click **Open**.
 3. Play the game!
 
