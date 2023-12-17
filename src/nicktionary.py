@@ -3,7 +3,7 @@ Nicktionary
 Nicholas Boni
 December 12, 2023
 '''
-import os, sys
+import os, sys, time
 
 def resource_path(relative_path):
     '''
@@ -179,7 +179,6 @@ and then try again.")
         for line in f:
             line_list = line.split()
             filedate = pad_str(line_list[0:3])
-            print(filedate)
             if filedate == wordle_date:
                 wordle = line_list[-1]
 
@@ -189,9 +188,19 @@ and then try again.")
     
     return wordle
 
-def main():
-    import time
+def crawl(str):
+    '''
+    Accepts str as input.
 
+    Crawls str across the screen slowly.
+
+    Returns None.
+    '''
+    for char in str:
+        time.sleep(0.1)
+        print(char,end='',flush=True)
+
+def main():
     wordle = read_wordle(resource_path('wordle_list.txt'))
 
     print('\n'+'*'*75)
@@ -236,12 +245,7 @@ Type 'quit' at any time to end the game.")
     
     if won:
         time.sleep(0.5)
-
-        winner = '!!! W I N N E R !!!'
-        for char in winner:
-            time.sleep(0.1)
-            print(char,end='',flush=True)
-            
+        crawl('!!! W I N N E R !!!')
         time.sleep(1)
         print('\n\nYou won!')
     else:
@@ -256,8 +260,8 @@ Type 'quit' at any time to end the game.")
     input('\nPress ENTER to quit.')
     print('\nSee you tomorrow!')
     time.sleep(1)
-    print('love, N')
-    time.sleep(1)
+    crawl('love, N')
+    time.sleep(1.25)
     sys.exit()
 
 if __name__ == '__main__':
