@@ -34,7 +34,7 @@ def evaluate_guess(guess,answer):
         # skip results already rendered
         if guess_letter == '_':
             guess_i += 1
-            continue
+            continue #continue guess loop
 
         answer_i = 0
         while answer_i < len(answer) and not start_over:
@@ -43,6 +43,7 @@ def evaluate_guess(guess,answer):
             # does this letter appear in the solution?
             if guess_letter == answer_letter:
                     # letter appears in solution.
+
                     # is it in the correct place?
                     if guess_i == answer_i: 
                         outstr = splice_str(outstr,'O',guess_i)
@@ -62,15 +63,15 @@ def evaluate_guess(guess,answer):
                             while guess_j < len(guess):
                                 if guess[guess_j] == answer[guess_j]:
 
+                                    # '_' matches are meaningless
                                     if guess[guess_j] == '_':
-                                        # '_' matches are meaningless
                                         break # break future letter loop
                                     
                                     outstr = splice_str(outstr,'O',guess_j)
                                     guess = splice_str(guess,'_',guess_j)
                                     answer = splice_str(answer,'_',guess_j)
-                                    start_over = True
                                     action_taken = True
+                                    start_over = True
                                     break # break future letter loop
 
                                 guess_j += 1
@@ -82,17 +83,17 @@ def evaluate_guess(guess,answer):
                             # in the future?
                             if guess_letter in answer[answer_i+1:]:
                                 answer_i += 1
-                                continue
+                                continue # continue answer loop
 
-                            # (!guess_letter in answer[answer[i+1:]]
+                            # !(guess_letter in answer[answer[i+1:]])
                             # this letter does not appear in the answer
                             # in the future.
                             else:
                                 outstr = splice_str(outstr,'X',guess_i)
                                 guess = splice_str(guess,'_',guess_i)
                                 answer = splice_str(answer,'_',answer_i)
-                                start_over = True
                                 action_taken = True
+                                start_over = True
                                 break # break answer loop
     
             if start_over:
@@ -102,9 +103,9 @@ def evaluate_guess(guess,answer):
             answer_i += 1 
 
         if start_over:
-            guess_i = 0
             start_over = False
-            continue
+            guess_i = 0
+            continue # continue guess loop
         
         # this letter does not appear in the solution
         if not action_taken:
@@ -222,7 +223,7 @@ Type 'quit' at any time to end the game.")
 
     i = 0
     won = False
-    while i < 6 and not won:
+    while i < 6:
         guess = input(f'GUESS #{i+1}: ').strip().upper()
 
         if guess == 'QUIT':
@@ -231,7 +232,7 @@ Type 'quit' at any time to end the game.")
             print('Invalid guess!')
             continue
         if not guess.isalnum():
-            input('Invalid guess!')
+            print('Invalid guess!')
             continue
 
         outstr = evaluate_guess(guess,wordle)
@@ -240,7 +241,8 @@ Type 'quit' at any time to end the game.")
 
         if outstr == 'O O O O O':
             won = True
-            break
+            break # break main loop
+
         i += 1
     
     if won:
@@ -262,6 +264,7 @@ Type 'quit' at any time to end the game.")
     time.sleep(1)
     crawl('love, N')
     time.sleep(1.25)
+    
     sys.exit()
 
 if __name__ == '__main__':
