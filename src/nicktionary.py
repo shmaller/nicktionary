@@ -133,11 +133,12 @@ def splice_str(str,letter,index):
 
     return new_header + new_footer
 
-def pad_outstr(str):
+def pad_str(str):
     '''
-    Accepts results str as input.
+    Accepts str as input.
 
-    Pads results with spaces to make it easier to read.
+    Pads str with spaces between all elements internally.
+    Spaces are removed from ends.
 
     Returns outstr. 
     '''
@@ -158,6 +159,7 @@ def read_wordle(infile):
     Returns wordle solution as str.
     '''
     from datetime import date
+
     today = date.today()
     wordle_date = today.strftime('%b %d %Y')
     wordle = ''
@@ -176,7 +178,8 @@ and then try again.")
     with open(infile) as f:
         for line in f:
             line_list = line.split()
-            filedate = line_list[0] + ' ' + line_list[1] + ' ' + line_list[2]
+            filedate = pad_str(line_list[0:3])
+            print(filedate)
             if filedate == wordle_date:
                 wordle = line_list[-1]
 
@@ -223,7 +226,7 @@ Type 'quit' at any time to end the game.")
             continue
 
         outstr = evaluate_guess(guess,wordle)
-        outstr = pad_outstr(outstr)
+        outstr = pad_str(outstr)
         print(outstr + '\n')
 
         if outstr == 'O O O O O':
