@@ -34,7 +34,7 @@ def evaluate_guess(guess,answer):
         # skip results already rendered
         if guess_letter == '_':
             guess_i += 1
-            continue #continue guess loop
+            continue # continue guess loop
 
         answer_i = 0
         while answer_i < len(answer) and not start_over:
@@ -126,11 +126,10 @@ def splice_str(str,letter,index):
     Returns updated str.
     '''
     new_header = str[0:index] + letter
+    new_footer = ''
 
     if str[index:]:
         new_footer = str[index+1:]
-    else:
-        new_footer = ''
 
     return new_header + new_footer
 
@@ -143,7 +142,6 @@ def pad_str(str):
 
     Returns outstr. 
     '''
-
     outstr = ''
     for char in str:
         outstr += char + ' '
@@ -182,6 +180,7 @@ and then try again.")
             filedate = pad_str(line_list[0:3])
             if filedate == wordle_date:
                 wordle = line_list[-1]
+                break
 
     if not wordle:
         input('Error reading wordle. Today\'s date not found.')
@@ -228,10 +227,7 @@ Type 'quit' at any time to end the game.")
 
         if guess == 'QUIT':
             sys.exit()
-        if len(guess) != 5:
-            print('Invalid guess!')
-            continue
-        if not guess.isalnum():
+        if len(guess) != 5 or not guess.isalnum():
             print('Invalid guess!')
             continue
 
@@ -241,7 +237,7 @@ Type 'quit' at any time to end the game.")
 
         if outstr == 'O O O O O':
             won = True
-            break # break main loop
+            break
 
         i += 1
     
