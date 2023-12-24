@@ -231,6 +231,7 @@ Type 'quit' at any time to end the game.")
             print('Invalid guess!')
             continue
 
+        print(pad_str(guess))
         outstr = evaluate_guess(guess,wordle)
         outstr = pad_str(outstr)
         print(outstr + '\n')
