@@ -360,5 +360,56 @@ Type 'quit' at any time to end the game.
     
     sys.exit()
 
+def main():
+    '''
+    '''
+
+    print("""
+N I C K T I O N A R Y
+---------------------------------------------------------------------------
+
+Welcome to Nicktionary! Try to guess the word!
+This program replicates Josh Wardle\'s game Wordle.
+It loads a new wordle every day, and is playable until October 20, 2027.
+Run this program every day to play a new word!
+""")
+    time.sleep(1.5)
+
+    while True:
+        response = input("""
+    *************
+    * MAIN MENU *
+    *************\n
+Type a command and hit ENTER:\n
+play: Play today's word.
+random: Play a word from a random date.
+date: Play a word from a specific date.
+help: Read the rules of the game.
+quit: Exit the program.\n\n""")
+
+        if response.lower() == 'play':
+            play(read_wordle('today'))
+
+        elif response.lower() == 'random':
+            play(read_wordle('random'))
+            
+        elif response.lower() == 'date':
+            str_date = input("Enter a date in the format YYYYMMDD: ")
+            try:
+                play(read_wordle('date',str_date))
+            except ValueError:
+                print('\nInvalid date. Try again!\n')
+                time.sleep(1.5)
+            
+        elif response.lower() == 'help':
+            help()
+
+        elif response.lower() == 'quit':
+            sys.exit(0)
+        
+        else:
+            print('\nInvalid input.')
+            time.sleep(1.5)
+
 if __name__ == '__main__':
     main()
