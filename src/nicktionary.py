@@ -221,6 +221,8 @@ def delete_last_line():
         sys.stdout.write('\x1b[1A')
         #delete last line
         sys.stdout.write('\x1b[2K')
+def help():
+    input("""
 ------------------------------------------------------
 HOW TO PLAY              
 
@@ -232,116 +234,63 @@ When you submit your guess, the program will tell you
 ------------------------------------------------------
 (ENTER to continue)""")
 
-        delete_last_line()
+    delete_last_line()
 
-        print("Here's an example:\n")
-        time.sleep(1.5)
+    print("Here's an example:\n")
+    time.sleep(1.5)
 
-        crawl('paste')
-        time.sleep(1)
-        print('\n\nP A S T E')
-        print('O O X O -')
-        time.sleep(2)
-        input("""
+    crawl('paste')
+    time.sleep(1)
+    print('\n\nP A S T E')
+    print('O O X O -')
+    time.sleep(2)
+
+    input("""
 This means that the letters P, A, and T are correct.
+The answer will look like: PA_T_.
+
 The letter S appears somewhere in the solution, 
-              but not as the third letter.
+            but not as the third letter.
+
 The letter E does not appear in the solution word.
-So the answer must be something like, say, PARTS.
-              
+
+(ENTER to continue)""")
+
+    delete_last_line()
+
+    print("A good second guess might be PARTS. Let's try it:\n")
+    time.sleep(1.5)
+
+    crawl('parts')
+    time.sleep(1)
+    print('\n\nP A R T S')
+    print('O O - O O')
+    time.sleep(2)
+
+    input("""
+Hmm... So the solution is PA_TS. How about PANTS?
+
+(ENTER to continue)""")
+
+    delete_last_line()
+
+    crawl('pants')
+    time.sleep(1)
+    print('\n\nP A N T S')
+    print('O O O O O')
+    time.sleep(2)
+
+    input("""
+Whew, we got it!
+            
 (ENTER to finish)""")
-        
-        delete_last_line()
-        
-        print("Now you're ready to play!")
-        time.sleep(2)
-        menu()
-    elif response == 'quit':
-        sys.exit(0)
-    else:
-        print('Invalid input.')
-
-def delete_last_line():
-        #cursor up one line
-        sys.stdout.write('\x1b[1A')
-        #delete last line
-        sys.stdout.write('\x1b[2K')
-
-def read_wordle(infile):
-    '''
-    Accepts infile with list of all wordle solutions.
-
-    Grabs today's date, scans infile for appropriate 
-    wordle solution.
-
-    Returns wordle solution as str.
-    '''
-    from datetime import date
-
-    today = date.today()
-    wordle_date = today.strftime('%b %d %Y')
-    wordle = ''
-
-    if not os.path.isfile(infile):
-        print('\n'+'*'*75)
-        print("""ERROR: Cannot find solution list. 
-Make sure 'wordle_list.txt' exists in the same 
-directory as this program. 
-Press ENTER to quit, place the file in this directory,
-and then try again.""")
-        print('*'*75)
-        input()
-        sys.exit()
+            
+    delete_last_line()
     
-    with open(infile) as f:
-        for line in f:
-            line_list = line.split()
-            filedate = pad_str(line_list[0:3])
-            if filedate == wordle_date:
-                wordle = line_list[-1]
-                break
-
-    if not wordle:
-        print('Today\'s date not found. Choosing a random date.')
-    
-    return wordle
-
-def crawl(str):
-    '''
-    Accepts str as input.
-
-    Crawls str across the screen slowly.
-
-    Returns None.
-    '''
-    for char in str:
-        time.sleep(0.1)
-        print(char,end='',flush=True)
-
-def main():
-    menu()
-
-    wordle = read_wordle(resource_path('wordle_list.txt'))
-
-    print('\n'+'*'*75)
-    print("""Welcome to Nicktionary! Try to guess the word!
-This program replicates Josh Wardle\'s game Wordle.
-It loads a new wordle every day, and is playable until October 20, 2027.
-Run this program every day to play a new word!\n
-HOW TO PLAY:
-Your objective is to guess the five-letter word.
-When you submit your guess, the program will tell you
-          whether each letter of your guess appears in the solution word.
-
-Type a five-letter word and hit ENTER.
-The game will evaluate your guess.
-An 'O' means that this letter is in the right place.
-An 'X' means that this letter is in the solution, 
-          but in a different place than you guessed.
-A '-' means that this letter does not appear in the solution.
-You have six guesses to get it right!
-Type 'quit' at any time to end the game.""")
-    print('*'*75+'\n')
+    print("You have six guesses to get it right!")
+    time.sleep(2)
+    print("\nNow you're ready to play!\n")
+    time.sleep(2)
 
     i = 0
     won = False
