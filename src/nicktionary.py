@@ -292,6 +292,12 @@ Whew, we got it!
     print("\nNow you're ready to play!\n")
     time.sleep(2)
 
+def play(wordle):
+    print("""
+Type 'help' to read the rules of the game.
+Type 'quit' at any time to end the game.
+""")
+
     i = 0
     won = False
     while i < 6:
@@ -299,6 +305,11 @@ Whew, we got it!
 
         if guess == 'QUIT':
             sys.exit()
+
+        elif guess == 'HELP':
+            help()
+            continue
+
         if len(guess) != 5 or not guess.isalnum():
             print('Invalid guess!')
             continue
