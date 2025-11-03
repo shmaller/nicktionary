@@ -7,8 +7,8 @@ import os
 import sys
 import time
 
-from datetime import date
-from random import randint
+from datetime import date, timedelta
+from random import randint, choice
 
 def resource_path(relative_path):
     '''
