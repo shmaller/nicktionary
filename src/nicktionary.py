@@ -153,44 +153,74 @@ def pad_str(str):
 
     return outstr.strip()
 
-def get_wordle_date():
-    '''No inputs.
-
-    Prompt user to enter a date or 
-    
+def read_wordle(option, indate=''):
     '''
-    select = input('Enter the date of the wordle you want to play, \
-                   or type "random" for a random word.').strip()
-    
-    if select == 'random':
-        i = randint(1,2317)
+    Accepts infile with list of all wordle solutions.
 
+    Grabs today's date, scans infile for appropriate 
+    wordle solution.
+
+    Returns wordle solution as str.
+    '''
+
+    if option == 'today':
+        today = date.today()
+        wordle_date = today.strftime('%b %d %Y')
+    
+    elif option == 'random':
+        start_date = date(2021, 6, 19) # first date in wordle_list
+        rand_days = choice(range(2314)) # number of unique dates in wordle_list
+
+        random_date = start_date + timedelta(days=rand_days)
+        wordle_date = random_date.strftime('%b %d %Y')
+
+    elif option == 'date':
+        year = int(indate[0:4])
+        month = int(indate[4:6])
+        day = int(indate[6:8])
+
+        wordle_date = date(year, month, day).strftime('%b %d %Y')
+     
     else:
         pass
-        
-def menu():
-    '''
-    '''
-    response = input("""
 
-    *************
-    * MAIN MENU *
-    *************\n
-Type a command and hit ENTER:\n
-play: Play today's word.
-random: Play a word from a random date.
-date: Play a word from a specific date.
-help: Read the rules of the game.
-quit: Exit the program.\n\n""")
+    wordle = ''
 
-    if response == 'play':
-        pass
-    elif response == 'random':
-        pass
-    elif response == 'date':
-        pass
-    elif response == 'help':
-        input("""
+    if not os.path.isfile(resource_path('wordle_list.txt')):
+        print("""
+*****************************************************************
+ERROR: Cannot find solution list. 
+Make sure 'wordle_list.txt' exists in the same 
+directory as this program. 
+Press ENTER to quit, place the file in this directory,
+and then try again.
+*****************************************************************
+""")
+        input()
+        sys.exit()
+    
+    with open(resource_path('wordle_list.txt')) as f:
+        for line in f:
+            line_list = line.split()
+            filedate = pad_str(line_list[0:3])
+            if filedate == wordle_date:
+                wordle = line_list[-1]
+                break
+
+    if not wordle:
+        print('\nToday\'s date not found. Choosing a random date.')
+        return read_wordle('random')
+
+    print(f"""
+Playing Wordle from {wordle_date}.
+---------------------------------------------------------------------------""")
+    return wordle
+
+def delete_last_line():
+        #cursor up one line
+        sys.stdout.write('\x1b[1A')
+        #delete last line
+        sys.stdout.write('\x1b[2K')
 ------------------------------------------------------
 HOW TO PLAY              
 
