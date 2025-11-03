@@ -221,6 +221,19 @@ def delete_last_line():
         sys.stdout.write('\x1b[1A')
         #delete last line
         sys.stdout.write('\x1b[2K')
+
+def crawl(str):
+    '''
+    Accepts str as input.
+
+    Crawls str across the screen slowly.
+
+    Returns None.
+    '''
+    for char in str:
+        time.sleep(0.1)
+        print(char,end='',flush=True)
+
 def help():
     input("""
 ------------------------------------------------------
