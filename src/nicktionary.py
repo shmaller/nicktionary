@@ -153,6 +153,21 @@ def pad_str(str):
 
     return outstr.strip()
 
+def get_wordle_date():
+    '''No inputs.
+
+    Prompt user to enter a date or 
+    
+    '''
+    select = input('Enter the date of the wordle you want to play, \
+                   or type "random" for a random word.').strip()
+    
+    if select == 'random':
+        i = randint(1,2317)
+
+    else:
+        pass
+        
 def menu():
     '''
     '''
@@ -256,8 +271,7 @@ and then try again.")
                 break
 
     if not wordle:
-        input('Error reading wordle. Today\'s date not found.')
-        sys.exit()
+        print('Today\'s date not found. Choosing a random date.')
     
     return wordle
 
