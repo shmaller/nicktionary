@@ -153,6 +153,74 @@ def pad_str(str):
 
     return outstr.strip()
 
+def menu():
+    '''
+    '''
+    response = input("""
+
+    *************
+    * MAIN MENU *
+    *************\n
+Type a command and hit ENTER:\n
+play: Play today's word.
+random: Play a word from a random date.
+date: Play a word from a specific date.
+help: Read the rules of the game.
+quit: Exit the program.\n\n""")
+
+    if response == 'play':
+        pass
+    elif response == 'random':
+        pass
+    elif response == 'date':
+        pass
+    elif response == 'help':
+        input("""
+------------------------------------------------------
+HOW TO PLAY              
+
+Your objective is to guess the five-letter word.
+When you submit your guess, the program will tell you
+    whether each letter of your guess appears in the 
+    solution word.
+
+------------------------------------------------------
+(ENTER to continue)""")
+
+        delete_last_line()
+
+        print("Here's an example:\n")
+        time.sleep(1.5)
+
+        crawl('paste')
+        time.sleep(1)
+        print('\n\nP A S T E')
+        print('O O X O -')
+        time.sleep(2)
+        input("""
+This means that the letters P, A, and T are correct.
+The letter S appears somewhere in the solution, 
+              but not as the third letter.
+The letter E does not appear in the solution word.
+So the answer must be something like, say, PARTS.
+              
+(ENTER to finish)""")
+        
+        delete_last_line()
+        
+        print("Now you're ready to play!")
+        time.sleep(2)
+        menu()
+    elif response == 'quit':
+        sys.exit(0)
+    else:
+        print('Invalid input.')
+
+def delete_last_line():
+        #cursor up one line
+        sys.stdout.write('\x1b[1A')
+        #delete last line
+        sys.stdout.write('\x1b[2K')
 def read_wordle(infile):
     '''
     Accepts infile with list of all wordle solutions.
@@ -206,6 +274,8 @@ def crawl(str):
         print(char,end='',flush=True)
 
 def main():
+    menu()
+
     wordle = read_wordle(resource_path('wordle_list.txt'))
 
     print('\n'+'*'*75)
