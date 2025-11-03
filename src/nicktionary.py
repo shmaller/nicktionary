@@ -236,6 +236,7 @@ def delete_last_line():
         sys.stdout.write('\x1b[1A')
         #delete last line
         sys.stdout.write('\x1b[2K')
+
 def read_wordle(infile):
     '''
     Accepts infile with list of all wordle solutions.
@@ -253,11 +254,11 @@ def read_wordle(infile):
 
     if not os.path.isfile(infile):
         print('\n'+'*'*75)
-        print("ERROR: Cannot find solution list. \n\
-Make sure 'wordle_list.txt' exists in the same \
-directory as this program. \n\
-Press ENTER to quit, place the file in this directory, \
-and then try again.")
+        print("""ERROR: Cannot find solution list. 
+Make sure 'wordle_list.txt' exists in the same 
+directory as this program. 
+Press ENTER to quit, place the file in this directory,
+and then try again.""")
         print('*'*75)
         input()
         sys.exit()
@@ -293,20 +294,23 @@ def main():
     wordle = read_wordle(resource_path('wordle_list.txt'))
 
     print('\n'+'*'*75)
-    print("Welcome to Nicktionary! Try to guess the word!\n\
-This is a clone that replicates Josh Wardle\'s game Wordle.\n\
-It loads a new wordle from his original list every day, \n\
-        and is playable until October 20, 2027.\n\
-You can run this program every day!\n\n\
-HOW TO PLAY:\n\
-Type a five-letter word and hit ENTER.\n\
-The game will evaluate your guess.\n\
-An 'O' means that this letter is in the right place.\n\
-An 'X' means that this letter is in the solution, \n\
-          but in a different place than you guessed.\n\
-A '-' means that this letter does not appear in the solution.\n\
-You have six guesses to get it right!\n\
-Type 'quit' at any time to end the game.")
+    print("""Welcome to Nicktionary! Try to guess the word!
+This program replicates Josh Wardle\'s game Wordle.
+It loads a new wordle every day, and is playable until October 20, 2027.
+Run this program every day to play a new word!\n
+HOW TO PLAY:
+Your objective is to guess the five-letter word.
+When you submit your guess, the program will tell you
+          whether each letter of your guess appears in the solution word.
+
+Type a five-letter word and hit ENTER.
+The game will evaluate your guess.
+An 'O' means that this letter is in the right place.
+An 'X' means that this letter is in the solution, 
+          but in a different place than you guessed.
+A '-' means that this letter does not appear in the solution.
+You have six guesses to get it right!
+Type 'quit' at any time to end the game.""")
     print('*'*75+'\n')
 
     i = 0
