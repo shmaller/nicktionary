@@ -6,9 +6,8 @@ December 12, 2023
 import os
 import sys
 import time
-
-from datetime import date, timedelta
-from random import randint, choice
+import datetime
+import random
 
 def resource_path(relative_path):
     '''
@@ -164,14 +163,13 @@ def read_wordle(option, indate=''):
     '''
 
     if option == 'today':
-        today = date.today()
-        wordle_date = today.strftime('%b %d %Y')
+        wordle_date = datetime.date.today().strftime('%b %d %Y')
     
     elif option == 'random':
-        start_date = date(2021, 6, 19) # first date in wordle_list
-        rand_days = choice(range(2314)) # number of unique dates in wordle_list
+        start_date = datetime.date(2021, 6, 19) # first date in wordle_list
+        rand_days = random.choice(range(2314)) # number of unique dates in wordle_list
 
-        random_date = start_date + timedelta(days=rand_days)
+        random_date = start_date + datetime.timedelta(days=rand_days)
         wordle_date = random_date.strftime('%b %d %Y')
 
     elif option == 'date':
