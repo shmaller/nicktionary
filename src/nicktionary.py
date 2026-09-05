@@ -192,14 +192,22 @@ def read_wordle(option, indate=''):
         wordle_date = random_date.strftime('%b %d %Y')
 
     elif option == 'date':
-        year = int(indate[0:4])
-        month = int(indate[4:6])
-        day = int(indate[6:8])
+        try:
+            year = int(indate[0:4])
+            month = int(indate[4:6])
+            day = int(indate[6:8])
 
-        wordle_date = date(year, month, day).strftime('%b %d %Y')
-     
+            wordle_date = datetime.date(year, month, day).strftime('%b %d %Y')
+        except ValueError:
+            logger.error(f'Invalid year, month, or day: {year} {month} {day}; '
+                        'can\'t cast as int.')
+            raise
+
     else:
-        pass
+        raise ValueError(
+            "Invalid option {option}, must be one of "
+            "'today','random', 'date'."
+        )
 
     wordle = ''
 
