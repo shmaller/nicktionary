@@ -17,6 +17,7 @@ def config_logging()
         '{asctime} [{levelname}] {filename} {funcName}({lineno}): {message}', 
         style = '{'
     )
+    os.makedirs('log', exist_ok = True)
     # stream_handler = logging.StreamHandler()
     file_handler = logging.RotatingFileHandler(
         filename = 'log/nicktionary.log',
