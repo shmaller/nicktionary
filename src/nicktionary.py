@@ -17,7 +17,7 @@ def config_logging()
         '{asctime} [{levelname}] {filename} {funcName}({lineno}): {message}', 
         style = '{'
     )
-    stream_handler = logging.StreamHandler()
+    # stream_handler = logging.StreamHandler()
     file_handler = logging.RotatingFileHandler(
         filename = 'log/nicktionary.log',
         maxBytes = 1024,
@@ -25,7 +25,7 @@ def config_logging()
     )
 
     logger.setFormatter(formatter)
-    logger.addHandler(stream_handler)
+    # logger.addHandler(stream_handler)
     logger.addHandler(file_handler)
 
 def resource_path(relative_path):
