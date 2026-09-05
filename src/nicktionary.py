@@ -9,23 +9,26 @@ import time
 import datetime
 import random
 import logging
+from logging import Formatter
+from logging.handlers import RotatingFileHandler
+
+logger = logging.getLogger(__name__)
 
 def config_logging():
-    logger = logging.getLogger(__name__)
-
-    formatter = logger.Formatter(
+    formatter = Formatter(
         '{asctime} [{levelname}] {filename} {funcName}({lineno}): {message}', 
         style = '{'
     )
     os.makedirs('log', exist_ok = True)
     # stream_handler = logging.StreamHandler()
-    file_handler = logging.RotatingFileHandler(
+    file_handler = RotatingFileHandler(
         filename = 'log/nicktionary.log',
         maxBytes = 1024,
         backupCount = 3
     )
 
-    logger.setFormatter(formatter)
+    #stream_handler.setFormatter(formatter)
+    file_handler.setFormatter(formatter)
     # logger.addHandler(stream_handler)
     logger.addHandler(file_handler)
 
@@ -200,13 +203,13 @@ def read_wordle(option, indate=''):
 
             wordle_date = datetime.date(year, month, day).strftime('%b %d %Y')
         except ValueError:
-            logger.error(f'Invalid year, month, or day: {year} {month} {day}; '
+            logger.error(f'Invalid year, month, or day: {indate}; '
                         'can\'t cast as int.')
             raise
 
     else:
         raise ValueError(
-            "Invalid option {option}, must be one of "
+            f"Invalid option {option}, must be one of "
             "'today','random', 'date'."
         )
 
@@ -438,4 +441,5 @@ quit: Exit the program.\n\n""")
             time.sleep(1.5)
 
 if __name__ == '__main__':
+    config_logging()
     main()
