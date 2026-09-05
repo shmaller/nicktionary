@@ -10,7 +10,7 @@ import datetime
 import random
 import logging
 
-def config_logging()
+def config_logging():
     logger = logging.getLogger(__name__)
 
     formatter = logger.Formatter(
