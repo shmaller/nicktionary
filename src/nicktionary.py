@@ -8,6 +8,25 @@ import sys
 import time
 import datetime
 import random
+import logging
+
+def config_logging()
+    logger = logging.getLogger(__name__)
+
+    formatter = logger.Formatter(
+        '{asctime} [{levelname}] {filename} {funcName}({lineno}): {message}', 
+        style = '{'
+    )
+    stream_handler = logging.StreamHandler()
+    file_handler = logging.RotatingFileHandler(
+        filename = 'log/nicktionary.log',
+        maxBytes = 1024,
+        backupCount = 3
+    )
+
+    logger.setFormatter(formatter)
+    logger.addHandler(stream_handler)
+    logger.addHandler(file_handler)
 
 def resource_path(relative_path):
     '''
