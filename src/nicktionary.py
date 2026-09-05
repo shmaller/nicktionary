@@ -3,7 +3,34 @@ Nicktionary
 Nicholas Boni
 December 12, 2023
 '''
-import os, sys, time
+import os
+import sys
+import time
+import datetime
+import random
+import logging
+from logging import Formatter
+from logging.handlers import RotatingFileHandler
+
+logger = logging.getLogger(__name__)
+
+def config_logging():
+    formatter = Formatter(
+        '{asctime} [{levelname}] {filename} {funcName}({lineno}): {message}', 
+        style = '{'
+    )
+    os.makedirs('log', exist_ok = True)
+    # stream_handler = logging.StreamHandler()
+    file_handler = RotatingFileHandler(
+        filename = 'log/nicktionary.log',
+        maxBytes = 1024,
+        backupCount = 3
+    )
+
+    #stream_handler.setFormatter(formatter)
+    file_handler.setFormatter(formatter)
+    # logger.addHandler(stream_handler)
+    logger.addHandler(file_handler)
 
 def resource_path(relative_path):
     '''
@@ -148,7 +175,7 @@ def pad_str(str):
 
     return outstr.strip()
 
-def read_wordle(infile):
+def read_wordle(option, indate=''):
     '''
     Accepts infile with list of all wordle solutions.
 
@@ -157,24 +184,51 @@ def read_wordle(infile):
 
     Returns wordle solution as str.
     '''
-    from datetime import date
 
-    today = date.today()
-    wordle_date = today.strftime('%b %d %Y')
+    if option == 'today':
+        wordle_date = datetime.date.today().strftime('%b %d %Y')
+    
+    elif option == 'random':
+        start_date = datetime.date(2021, 6, 19) # first date in wordle_list
+        rand_days = random.choice(range(2314)) # number of unique dates in wordle_list
+
+        random_date = start_date + datetime.timedelta(days=rand_days)
+        wordle_date = random_date.strftime('%b %d %Y')
+
+    elif option == 'date':
+        try:
+            year = int(indate[0:4])
+            month = int(indate[4:6])
+            day = int(indate[6:8])
+
+            wordle_date = datetime.date(year, month, day).strftime('%b %d %Y')
+        except ValueError:
+            logger.error(f'Invalid year, month, or day: {indate}; '
+                        'can\'t cast as int.')
+            raise
+
+    else:
+        raise ValueError(
+            f"Invalid option {option}, must be one of "
+            "'today','random', 'date'."
+        )
+
     wordle = ''
 
-    if not os.path.isfile(infile):
-        print('\n'+'*'*75)
-        print("ERROR: Cannot find solution list. \n\
-Make sure 'wordle_list.txt' exists in the same \
-directory as this program. \n\
-Press ENTER to quit, place the file in this directory, \
-and then try again.")
-        print('*'*75)
+    if not os.path.isfile(resource_path('wordle_list.txt')):
+        print("""
+*****************************************************************
+ERROR: Cannot find solution list. 
+Make sure 'wordle_list.txt' exists in the same 
+directory as this program. 
+Press ENTER to quit, place the file in this directory,
+and then try again.
+*****************************************************************
+""")
         input()
         sys.exit()
     
-    with open(infile) as f:
+    with open(resource_path('wordle_list.txt')) as f:
         for line in f:
             line_list = line.split()
             filedate = pad_str(line_list[0:3])
@@ -183,10 +237,19 @@ and then try again.")
                 break
 
     if not wordle:
-        input('Error reading wordle. Today\'s date not found.')
-        sys.exit()
-    
+        print('\nToday\'s date not found. Choosing a random date.')
+        return read_wordle('random')
+
+    print(f"""
+Playing Wordle from {wordle_date}.
+---------------------------------------------------------------------------""")
     return wordle
+
+def delete_last_line():
+        #cursor up one line
+        sys.stdout.write('\x1b[1A')
+        #delete last line
+        sys.stdout.write('\x1b[2K')
 
 def crawl(str):
     '''
@@ -200,25 +263,82 @@ def crawl(str):
         time.sleep(0.1)
         print(char,end='',flush=True)
 
-def main():
-    wordle = read_wordle(resource_path('wordle_list.txt'))
+def help():
+    input("""
+------------------------------------------------------
+HOW TO PLAY              
 
-    print('\n'+'*'*75)
-    print("Welcome to Nicktionary! Try to guess the word!\n\
-This is a clone that replicates Josh Wardle\'s game Wordle.\n\
-It loads a new wordle from his original list every day, \n\
-        and is playable until October 20, 2027.\n\
-You can run this program every day!\n\n\
-HOW TO PLAY:\n\
-Type a five-letter word and hit ENTER.\n\
-The game will evaluate your guess.\n\
-An 'O' means that this letter is in the right place.\n\
-An 'X' means that this letter is in the solution, \n\
-          but in a different place than you guessed.\n\
-A '-' means that this letter does not appear in the solution.\n\
-You have six guesses to get it right!\n\
-Type 'quit' at any time to end the game.")
-    print('*'*75+'\n')
+Your objective is to guess the five-letter word.
+When you submit your guess, the program will tell you
+    whether each letter of your guess appears in the 
+    solution word.
+
+------------------------------------------------------
+(ENTER to continue)""")
+
+    delete_last_line()
+
+    print("Here's an example:\n")
+    time.sleep(1.5)
+
+    crawl('paste')
+    time.sleep(1)
+    print('\n\nP A S T E')
+    print('O O X O -')
+    time.sleep(2)
+
+    input("""
+This means that the letters P, A, and T are correct.
+The answer will look like: PA_T_.
+
+The letter S appears somewhere in the solution, 
+            but not as the third letter.
+
+The letter E does not appear in the solution word.
+
+(ENTER to continue)""")
+
+    delete_last_line()
+
+    print("A good second guess might be PARTS. Let's try it:\n")
+    time.sleep(1.5)
+
+    crawl('parts')
+    time.sleep(1)
+    print('\n\nP A R T S')
+    print('O O - O O')
+    time.sleep(2)
+
+    input("""
+Hmm... So the solution is PA_TS. How about PANTS?
+
+(ENTER to continue)""")
+
+    delete_last_line()
+
+    crawl('pants')
+    time.sleep(1)
+    print('\n\nP A N T S')
+    print('O O O O O')
+    time.sleep(2)
+
+    input("""
+Whew, we got it!
+            
+(ENTER to finish)""")
+            
+    delete_last_line()
+    
+    print("You have six guesses to get it right!")
+    time.sleep(2)
+    print("\nNow you're ready to play!\n")
+    time.sleep(2)
+
+def play(wordle):
+    print("""
+Type 'help' to read the rules of the game.
+Type 'quit' at any time to end the game.
+""")
 
     i = 0
     won = False
@@ -227,6 +347,11 @@ Type 'quit' at any time to end the game.")
 
         if guess == 'QUIT':
             sys.exit()
+
+        elif guess == 'HELP':
+            help()
+            continue
+
         if len(guess) != 5 or not guess.isalnum():
             print('Invalid guess!')
             continue
@@ -264,5 +389,57 @@ Type 'quit' at any time to end the game.")
     
     sys.exit()
 
+def main():
+    '''
+    '''
+
+    print("""
+N I C K T I O N A R Y
+---------------------------------------------------------------------------
+
+Welcome to Nicktionary! Try to guess the word!
+This program replicates Josh Wardle\'s game Wordle.
+It loads a new wordle every day, and is playable until October 20, 2027.
+Run this program every day to play a new word!
+""")
+    time.sleep(1.5)
+
+    while True:
+        response = input("""
+    *************
+    * MAIN MENU *
+    *************\n
+Type a command and hit ENTER:\n
+play: Play today's word.
+random: Play a word from a random date.
+date: Play a word from a specific date.
+help: Read the rules of the game.
+quit: Exit the program.\n\n""")
+
+        if response.lower() == 'play':
+            play(read_wordle('today'))
+
+        elif response.lower() == 'random':
+            play(read_wordle('random'))
+            
+        elif response.lower() == 'date':
+            str_date = input("Enter a date in the format YYYYMMDD: ")
+            try:
+                play(read_wordle('date',str_date))
+            except ValueError:
+                print('\nInvalid date. Try again!\n')
+                time.sleep(1.5)
+            
+        elif response.lower() == 'help':
+            help()
+
+        elif response.lower() == 'quit':
+            sys.exit(0)
+        
+        else:
+            print('\nInvalid input.')
+            time.sleep(1.5)
+
 if __name__ == '__main__':
+    config_logging()
     main()
