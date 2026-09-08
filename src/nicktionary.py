@@ -12,6 +12,11 @@ import logging
 from logging import Formatter
 from logging.handlers import RotatingFileHandler
 
+import evaluate
+import help
+import interface
+import str_utils
+
 logger = logging.getLogger(__name__)
 
 def config_logging():
