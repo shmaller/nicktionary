@@ -181,8 +181,7 @@ def pad_str(str):
     return outstr.strip()
 
 def read_wordle(option, indate=''):
-    '''
-    Accepts infile with list of all wordle solutions.
+    '''Reads solution word from given game mode from solution file.
 
     Grabs today's date, scans infile for appropriate 
     wordle solution.
@@ -340,10 +339,13 @@ Whew, we got it!
     time.sleep(2)
 
 def play(wordle):
-    print("""
-Type 'help' to read the rules of the game.
-Type 'quit' at any time to end the game.
-""")
+    '''Evaluates user guesses against solution word, prints progress to console.
+
+    Inputs:
+    - wordle (str): Solution word
+
+    Returns: None.
+    '''
 
     i = 0
     won = False
@@ -395,18 +397,12 @@ Type 'quit' at any time to end the game.
     sys.exit()
 
 def main():
-    '''
-    '''
+    '''Main loop: Prompts user input for game mode, then plays game.
 
-    print("""
-N I C K T I O N A R Y
----------------------------------------------------------------------------
+    Inputs: None.
 
-Welcome to Nicktionary! Try to guess the word!
-This program replicates Josh Wardle\'s game Wordle.
-It loads a new wordle every day, and is playable until October 20, 2027.
-Run this program every day to play a new word!
-""")
+    Returns: None.
+    '''
     time.sleep(1.5)
 
     while True:
