@@ -5,10 +5,7 @@ December 12, 2023
 import os
 import sys
 import time
-import datetime
-import random
 import logging
-import textwrap
 from logging import Formatter
 from logging.handlers import RotatingFileHandler
 
@@ -44,13 +41,7 @@ def play(wordle):
 
     Returns: None.
     '''
-    print(textwrap.dedent(
-        """
-        Type 'help' to read the rules of the game.
-        Type 'quit' at any time to end the game.
-        """
-        )
-    )
+    print(str_utils.IN_GAME_INSTRUCTIONS)
 
     i = 0
     won = False
