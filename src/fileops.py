@@ -10,6 +10,7 @@ import logging
 import str_utils
 
 NUMBER_OF_WORDLES = 2315
+START_DATE = datetime.date(2021, 6, 19) # first date in wordle_list
 
 logger = logging.getLogger(__name__)
 
@@ -80,9 +81,8 @@ def _determine_wordle_date(option, indate):
         return datetime.date.today().strftime('%b %d %Y')
     
     elif option == 'RANDOM':
-        start_date = datetime.date(2021, 6, 19) # first date in wordle_list
         rand_days = random.choice(range(NUMBER_OF_WORDLES))
-        random_date = start_date + datetime.timedelta(days=rand_days)
+        random_date = START_DATE + datetime.timedelta(days=rand_days)
 
         return random_date.strftime('%b %d %Y')
 
@@ -111,18 +111,14 @@ def _generate_date_range():
 
     Returns: List of 2315 datetime.dates corresponding to Wordle solutions.
     '''
-    start_date = datetime.date(2021,6,19)
-
-    return [start_date + datetime.timedelta(i) for i in range(NUMBER_OF_WORDLES)]
+    return [START_DATE + datetime.timedelta(i) for i in range(NUMBER_OF_WORDLES)]
 
 def _strip_leading_zero(two_digit_number):
     '''Months and days sometimes have leading zeroes which are syntactically
     incorrect with datetime. Strip them out.
     
-    Input: two_digit_number (str): Month or day with leading zero (e.g., 04)
+    Input: two_digit_number (str): Month or day, possibly with leading zero (e.g., 04)
 
-    Returns: Just the significant digit.    
+    Returns: Just the significant digit(s). If no leading zero, untouched.    
     '''
-    out = two_digit_number[-1] if two_digit_number[0] == '0' else two_digit_number
-    logger.debug(f'Returning out: {out}')
-    return out
+    return two_digit_number[-1] if two_digit_number[0] == '0' else two_digit_number
