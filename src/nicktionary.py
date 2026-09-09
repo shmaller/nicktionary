@@ -55,7 +55,7 @@ def play(wordle):
             help.help()
             continue
 
-        if len(guess) != 5 or not guess.isalnum():
+        if not _is_valid(guess):        
             print('Invalid guess!')
             continue
 
@@ -90,6 +90,25 @@ def play(wordle):
     time.sleep(1.25)
     
     sys.exit(0)
+
+def _is_valid(guess):
+    '''Tests if guess meets basic validity check.
+
+    Input: guess (str): User guess to check.
+
+    Returns:
+    - True if guess is valid.
+    - False otherwise.
+    '''
+    if len(guess) != 5:
+        return False
+    if not guess.isalnum():
+        return False
+    for i in range(10):
+        if str(i) in guess:
+            return False
+    
+    return True
 
 def main():
     '''Main loop: Prompts user input for game mode, then plays game.
