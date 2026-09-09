@@ -65,6 +65,15 @@ def read_wordle(option, indate=''):
     return wordle
 
 def _determine_wordle_date(option, indate):
+    '''
+    Inputs:
+    - option (str): User-requested game mode.
+    - indate (str): Requested date. Used for 'DATE' mode.
+
+    Raises: ValueError if indate not in valid date range.
+
+    Returns: (str) Requested date, to be used to choose proper solution word.
+    '''
     if option == 'TODAY':
         return datetime.date.today().strftime('%b %d %Y')
     
@@ -92,6 +101,13 @@ def _determine_wordle_date(option, indate):
         return selected_date.strftime('%b %d %Y')
 
 def _generate_date_range():
+    '''Generates list of dates with Wordle solutions.
+    For comparison with user-selected date.
+
+    Inputs: None.
+
+    Returns: List of 2315 datetime.dates corresponding to Wordle solutions.
+    '''
     start_date = datetime.date(2021,6,19)
 
     return [start_date + datetime.timedelta(i) for i in range(NUMBER_OF_WORDLES)]
