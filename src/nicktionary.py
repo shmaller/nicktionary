@@ -14,8 +14,6 @@ import help
 import str_utils
 import fileops
 
-logger = logging.getLogger(__name__)
-
 def config_logging():
     '''Configure logging for main application.'''
     formatter = Formatter(
@@ -26,12 +24,15 @@ def config_logging():
     os.makedirs('log', exist_ok = True)
     file_handler = RotatingFileHandler(
         filename = 'log/nicktionary.log',
-        maxBytes = 1024,
+        maxBytes = 102400,
         backupCount = 3
     )
-    
     file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
+    file_handler.setLevel(logging.WARNING)
+
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.WARNING)
+    root_logger.addHandler(file_handler)
 
 def play(wordle):
     '''Evaluates user guesses against solution word, prints progress to console.
