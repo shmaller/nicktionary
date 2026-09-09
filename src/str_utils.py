@@ -32,6 +32,13 @@ MAIN_MENU = dedent(
     """
 )
 
+IN_GAME_INSTRUCTIONS = dedent(
+    """
+    Type 'help' to read the rules of the game.
+    Type 'quit' at any time to end the game.
+    """
+)
+
 WORDLE_LIST_NOT_FOUND = dedent(
     """
     *****************************************************************
@@ -45,6 +52,14 @@ WORDLE_LIST_NOT_FOUND = dedent(
     *****************************************************************
     """
 )
+
+def print_wordle_date_header(wordle_date):
+    print(dedent(
+        f"""
+        Playing Wordle from {wordle_date}.
+        ---------------------------------------------------------------------------"""
+        )
+    )
 
 def prompt(prompt, options=[]):
     '''Prompt the user for input, optionally check against valid values.
