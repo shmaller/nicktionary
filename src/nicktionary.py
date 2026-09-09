@@ -37,8 +37,7 @@ def config_logging():
 def play(wordle):
     '''Evaluates user guesses against solution word, prints progress to console.
 
-    Inputs:
-    - wordle (str): Solution word
+    Input: wordle (str): Solution word
 
     Returns: None.
     '''
@@ -59,7 +58,7 @@ def play(wordle):
             print('Invalid guess!')
             continue
 
-        print(str_utils.pad_str(guess.upper()))
+        print(str_utils.pad_str(guess))
         outstr = str_utils.pad_str(evaluate.evaluate_guess(guess,wordle))
         print(outstr + '\n')
 
@@ -144,7 +143,10 @@ def main():
             try:
                 play(fileops.read_wordle('DATE',str_date))
             except ValueError:
-                print('\nInvalid date. Try again!\n')
+                print(
+                    '\nTry again! Date must be between June 19, 2021 '
+                    'and October 20, 2027.\n'
+                )
                 time.sleep(1)
                 continue
         
