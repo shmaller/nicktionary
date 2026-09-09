@@ -144,8 +144,8 @@ def main():
                 play(fileops.read_wordle('DATE',str_date))
             except ValueError:
                 print(
-                    '\nTry again! Date must be between June 19, 2021 '
-                    'and October 20, 2027.\n'
+                    '\nTry again! Date must be between June 19, 2021\n'
+                    '   and October 20, 2027, and in format YYYYMMDD.\n'
                 )
                 time.sleep(1)
                 continue
