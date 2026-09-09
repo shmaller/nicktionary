@@ -61,7 +61,7 @@ def read_wordle(option, indate=''):
 
     if not wordle:
         print("\nToday's date not found. Choosing a random date.")
-        return read_wordle('random')
+        return read_wordle('RANDOM')
 
     str_utils.print_wordle_date_header(wordle_date)
 
