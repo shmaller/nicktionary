@@ -44,6 +44,8 @@ def read_wordle(option, indate=''):
             f"Invalid option {option}, must be one of "
             "'today','random', 'date'."
         )
+    if indate and not len(indate) == 8:
+        raise ValueError(f"Indate was not 8 characters: {indate}")
 
     wordle_date = _determine_wordle_date(option, indate)
     wordle = ''
@@ -68,7 +70,7 @@ def _determine_wordle_date(option, indate):
     '''
     Inputs:
     - option (str): User-requested game mode.
-    - indate (str): Requested date. Used for 'DATE' mode.
+    - indate (str): Requested date. Used for 'DATE' mode. Must be 8 chars.
 
     Raises: ValueError if indate not in valid date range.
 
@@ -95,6 +97,7 @@ def _determine_wordle_date(option, indate):
 
         selected_date = datetime.date(year, month, day)
         valid_range = _generate_date_range()
+        
         if selected_date not in valid_range:
             raise ValueError(f'User-provided date {selected_date} not in valid date range.')
 
