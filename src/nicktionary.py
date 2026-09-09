@@ -70,7 +70,7 @@ def play(wordle):
     
     if won:
         time.sleep(0.5)
-        crawl('!!! W I N N E R !!!')
+        str_utils.crawl('!!! W I N N E R !!!')
         time.sleep(1)
         print('\n\nYou won!')
     else:
@@ -85,7 +85,7 @@ def play(wordle):
     input('\nPress ENTER to quit.')
     print('\nSee you tomorrow!')
     time.sleep(1)
-    crawl('love, N')
+    str_utils.crawl('love, N\n')
     time.sleep(1.25)
     
     sys.exit(0)
