@@ -5,19 +5,14 @@ December 12, 2023
 import os
 import sys
 import time
-import datetime
-import random
 import logging
-import textwrap
 from logging import Formatter
 from logging.handlers import RotatingFileHandler
 
 import evaluate
 import help
-import interface
 import str_utils
-
-logger = logging.getLogger(__name__)
+import fileops
 
 def config_logging():
     '''Configure logging for main application.'''
@@ -29,106 +24,29 @@ def config_logging():
     os.makedirs('log', exist_ok = True)
     file_handler = RotatingFileHandler(
         filename = 'log/nicktionary.log',
-        maxBytes = 1024,
+        maxBytes = 102400,
         backupCount = 3
     )
-    
     file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
+    file_handler.setLevel(logging.WARNING)
 
-def resource_path(relative_path):
-    '''Get absolute path to resource, works for dev and for PyInstaller.
-    (copied from StackOverflow:
-    https://stackoverflow.com/questions/7674790/bundling-data-files-with-pyinstaller-onefile/13790741#13790741)
-    
-    '''
-    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
-    return os.path.join(base_path, relative_path)
-
-def check_for_wordle_file():
-    '''Aborts execution if solution list not found in this directory.'''
-    if not os.path.isfile(resource_path('wordle_list.txt')):
-        logger.critical('wordle_list.txt not found in this directory. Aborting.')
-        input(interface.WORDLE_LIST_NOT_FOUND)
-        sys.exit(1)
-
-def read_wordle(option, indate=''):
-    '''Reads solution word from given game mode from solution file.
-
-    Inputs:
-    option (str): One of 'today', 'random', 'date'.
-    indate (str) (required for 'date'): Specific date to play.
-
-    Raises: ValueError if option not in ['today', 'random', 'date'].
-
-    Returns: Solution word (str)
-    '''
-    if option == 'TODAY':
-        wordle_date = datetime.date.today().strftime('%b %d %Y')
-    
-    elif option == 'RANDOM':
-        start_date = datetime.date(2021, 6, 19) # first date in wordle_list
-        rand_days = random.choice(range(2314)) # number of unique dates in wordle_list
-        random_date = start_date + datetime.timedelta(days=rand_days)
-
-        wordle_date = random_date.strftime('%b %d %Y')
-
-    elif option == 'DATE':
-        year = int(indate[0:4])
-        month = int(indate[4:6])
-        day = int(indate[6:8])
-
-        wordle_date = datetime.date(year, month, day).strftime('%b %d %Y')
-
-    else:
-        raise ValueError(
-            f"Invalid option {option}, must be one of "
-            "'today','random', 'date'."
-        )
-
-    wordle = ''
-    
-    with open(resource_path('wordle_list.txt')) as f:
-        for line in f:
-            line_list = line.split()
-            filedate = str_utils.pad_str(line_list[0:3])
-            if filedate == wordle_date:
-                wordle = line_list[-1]
-                break
-
-    if not wordle:
-        print("\nToday's date not found. Choosing a random date.")
-        return read_wordle('random')
-
-    print(textwrap.dedent(
-        f"""
-        Playing Wordle from {wordle_date}.
-        ---------------------------------------------------------------------------"""
-        )
-    )
-
-    return wordle
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.WARNING)
+    root_logger.addHandler(file_handler)
 
 def play(wordle):
     '''Evaluates user guesses against solution word, prints progress to console.
 
-    Inputs:
-    - wordle (str): Solution word
+    Input: wordle (str): Solution word
 
     Returns: None.
     '''
-    print(textwrap.dedent(
-        """
-        Type 'help' to read the rules of the game.
-        Type 'quit' at any time to end the game.
-        """
-        )
-    )
+    print(str_utils.IN_GAME_INSTRUCTIONS)
 
     i = 0
     won = False
     while i < 6:
-        guess = interface.prompt(f'GUESS #{i+1}: ')
+        guess = str_utils.prompt(f'GUESS #{i+1}: ')
 
         if guess == 'QUIT':
             sys.exit(0)
@@ -136,11 +54,11 @@ def play(wordle):
             help.help()
             continue
 
-        if len(guess) != 5 or not guess.isalnum():
+        if not _is_valid(guess):        
             print('Invalid guess!')
             continue
 
-        print(str_utils.pad_str(guess.upper()))
+        print(str_utils.pad_str(guess))
         outstr = str_utils.pad_str(evaluate.evaluate_guess(guess,wordle))
         print(outstr + '\n')
 
@@ -172,6 +90,25 @@ def play(wordle):
     
     sys.exit(0)
 
+def _is_valid(guess):
+    '''Tests if guess meets basic validity check.
+
+    Input: guess (str): User guess to check.
+
+    Returns:
+    - True if guess is valid.
+    - False otherwise.
+    '''
+    if len(guess) != 5:
+        return False
+    if not guess.isalnum():
+        return False
+    for i in range(10):
+        if str(i) in guess:
+            return False
+    
+    return True
+
 def main():
     '''Main loop: Prompts user input for game mode, then plays game.
 
@@ -179,15 +116,15 @@ def main():
 
     Returns: None.
     '''
-    check_for_wordle_file()
+    fileops.check_for_wordle_file()
     
-    print(interface.SPLASH)
+    print(str_utils.SPLASH)
     time.sleep(1.5)
 
     while True:
         try:
-            response = interface.prompt(
-                interface.MAIN_MENU,
+            response = str_utils.prompt(
+                str_utils.MAIN_MENU,
                 ['PLAY','RANDOM','DATE','HELP','QUIT']
             )
         except ValueError:
@@ -196,17 +133,20 @@ def main():
             continue
 
         if response == 'PLAY':
-            play(read_wordle('TODAY'))
+            play(fileops.read_wordle('TODAY'))
 
         elif response == 'RANDOM':
-            play(read_wordle('RANDOM'))
+            play(fileops.read_wordle('RANDOM'))
         
         elif response == 'DATE':
-            str_date = interface.prompt("Enter a date in the format YYYYMMDD: ")
+            str_date = str_utils.prompt("Enter a date in the format YYYYMMDD: ")
             try:
-                play(read_wordle('DATE',str_date))
+                play(fileops.read_wordle('DATE',str_date))
             except ValueError:
-                print('\nInvalid date. Try again!\n')
+                print(
+                    '\nTry again! Date must be between June 19, 2021\n'
+                    '   and October 20, 2027, and in format YYYYMMDD.\n'
+                )
                 time.sleep(1)
                 continue
         
