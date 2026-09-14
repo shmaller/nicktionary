@@ -2,27 +2,23 @@
 
 This is a Python clone of the game Wordle, written by Nicholas Boni, originally made by Josh Wardle.
 
-The game updates the wordle every day, and will be playable until October 20, 2027.
+The game updates the Wordle every day until October 20, 2027. After that point, it will pull a random word from the list of 2,315 possible solutions.
 
-# Installation
-## Mac OS
-1. Click here: [releases](https://github.com/shmaller/nicktionary/releases).
-2. Scroll down to **Assets**, and click `nicktionary_macos.zip`.
-3. Open it from your downloads folder.
+## Background
 
-At this point, you will probably get warning about not being able to open the file because it is from an unknown developer. I swear, it's just me. To open the program:
+Josh Wardle's original game Wordle was sold to a newspaper which abandoned his original word list. This game uses the original list, and so is equivalent to playing the old Wordle game on his website. The point of making this was 1. for fun, and 2. to keep Wordle "hard and weird".
 
-4. **Control + Click** the file >> **Open**. This should open the "Open anyway?" dialog.
-5. Click **Open**.
-6. Play the game!
+## Installation
 
-## Windows
-1. Click here: [releases](https://github.com/shmaller/nicktionary/releases).
-2. Scroll down to **Assets**, and click `nicktionary_windows.zip`.
-3. Find it in your downloads folder, and **Right-Click >> Extract All**.
-4. Open the new folder `nicktionary`, and run `nicktionary.exe`.
+1. Clone this repository and `cd` into it
+2. `python3 src/nicktionary.py`
 
-At this point, you will probably get a message that says something like, "Microsoft Defender SmartScreen prevented an unrecognized app from starting. Running this app might put your PC at risk." I swear, it's just me. To open the program:
+## How to play
 
-5. Click **More Info >> Run anyway**.
-6. Play the game!
+1. Enter `play` to play today's word.
+2. Guess a five-letter word.
+3. The game will tell you if the each letter of your guess appears in the solution word.
+
+You have six guesses to get it right!
+
+Use the interactive `help` to learn the rules and the interface!
