@@ -33,13 +33,13 @@ def help():
     _delete_last_line()
 
     print("Here's an example:\n")
-    time.sleep(1.5)
+    time.sleep(1)
 
     str_utils.crawl('paste')
     time.sleep(1)
     print('\n\nP A S T E')
     print('O O X O -')
-    time.sleep(2)
+    time.sleep(1.5)
 
     input(
         dedent(
@@ -59,13 +59,13 @@ def help():
     _delete_last_line()
 
     print("A good second guess might be PARTS. Let's try it:\n")
-    time.sleep(1.5)
+    time.sleep(1)
 
     str_utils.crawl('parts')
     time.sleep(1)
     print('\n\nP A R T S')
     print('O O - O O')
-    time.sleep(2)
+    time.sleep(1.5)
 
     input(
         dedent(
@@ -82,7 +82,7 @@ def help():
     time.sleep(1)
     print('\n\nP A N T S')
     print('O O O O O')
-    time.sleep(2)
+    time.sleep(1.5)
 
     input(
         dedent(
@@ -95,9 +95,9 @@ def help():
     _delete_last_line()
     
     print("You have six guesses to get it right!")
-    time.sleep(2)
+    time.sleep(1.5)
     print("\nNow you're ready to play!\n")
-    time.sleep(2)
+    time.sleep(1.5)
 
 def _delete_last_line():
     '''Erases previous line in terminal and sets starting point there.
