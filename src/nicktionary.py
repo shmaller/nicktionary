@@ -82,14 +82,12 @@ def play(wordle):
     time.sleep(3)
     print('\nRun me tomorrow to play again!')
     time.sleep(3)
-    input('\nPress ENTER to quit.')
+    input('\nPress ENTER to return to the main menu.')
     print('\nSee you tomorrow!')
     time.sleep(1)
     str_utils.crawl('love, N\n')
     time.sleep(1.25)
     
-    sys.exit(0)
-
 def _is_valid(guess):
     '''Tests if guess meets basic validity check.
 
