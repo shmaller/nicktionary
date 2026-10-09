@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Nicktionary Help</title>
@@ -12,7 +13,7 @@
                 color:white;
             }
             .col{ float: left; }
-            .left{ width: 65%; }
+            .left{ width: 65%; margin: 5px; }
             .right{ width: 35%; position: fixed; right: 0; }
             .box{ 
                 border-style: solid; 
@@ -22,7 +23,7 @@
             }
         </style>
     </head>
-    <body>
+    <body style="margin: 0;">
         <h1>Nicktionary Help</h1>
         <div class="col left">
             <article id="how-to-play">
@@ -84,9 +85,19 @@
                     <code>YYYYMMDD</code> format.
                 </p>
                 <h3><code>help</code></h3>
-                <p>I think you know what this one does!</p>
+                <p>You are here.</p>
                 <h3><code>quit</code></h3>
                 <p>Quit the program. See you tomorrow!</p>
+            </article>
+            <article id="background">
+                <h2>Background</h2>
+                <p>
+                    Josh Wardle's original game Wordle was sold to a newspaper 
+                    which abandoned his original word list and simplified the game. 
+                    This game uses the original list, and so is equivalent to playing 
+                    the old Wordle game on his website. The point of making this 
+                    was 1. for fun, and 2. to keep Wordle "hard and weird".
+                </p>
             </article>
         </div>
         <div class="col right">
@@ -100,6 +111,7 @@
             <ul>
                 <li><a href="#how-to-play">How To Play</a></li>
                 <li><a href="#game-modes">Game Modes</a></li>
+                <li><a href="#background">Background</a></li>
             </ul>
             <h2>See Also</h2>
             <ul>
