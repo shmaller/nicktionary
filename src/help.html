@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <title>Nicktionary Help</title>
+        <link rel='icon' href='favicon.ico' type='image/x-icon'>
+        <style>
+            h1{
+                margin:0px;
+                padding-left: 10%;
+                font-family:"Arial",sans-serif;
+                font-size: xxx-large;
+                background-color:black;
+                color:white;
+            }
+            .col{ float: left; }
+            .left{ width: 65%; }
+            .right{ width: 35%; position: fixed; right: 0; }
+            .box{ 
+                border-style: solid; 
+                border-width: 2px; 
+                margin: 2px;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Nicktionary Help</h1>
+        <div class="col left">
+            <article id="how-to-play">
+                <h2>How To Play</h2>
+                <p>Your objective is to guess the five-letter word.</p>
+                <p>            
+                    When you submit your guess, the program will tell you
+                    whether each letter of your guess appears in the 
+                    solution word.
+                </p>
+                <p>Here's an example:</p>
+                <p>
+                    <code>GUESS #1: paste</code><br>
+                    <code>P A S T E</code><br>
+                    <code>O O X O -</code>
+                </p>
+                <p>
+                    This means that the letters P, A, and T are correct.
+                    The answer will look like: <code>PA_T_</code>.
+                </p>
+                <p>
+                    The letter S appears somewhere in the solution, 
+                    but not as the third letter.
+                </p>
+                <p>The letter E does not appear in the solution word.</p>
+                <p>A good second guess might be <code>PARTS</code>. Let's try it:</p>
+                <p>
+                    <code>GUESS #2: parts</code><br>
+                    <code>P A R T S</code><br>
+                    <code>O O - O O</code>
+                </p>
+                <p>
+                    Hmm... So the solution is <code>PA_TS</code>. How about <code>PANTS</code>?
+                </p>
+                <p>
+                    <code>GUESS #3: pants</code><br>
+                    <code>P A N T S</code><br>
+                    <code>O O O O O</code>
+                </p>
+                <p>Whew, we got it!</p>
+                <p>You have six guesses to get it right!</p>
+                <p>Now you're ready to play!</p>
+            </article>
+            <article id="game-modes">
+                <h2>Game Modes</h2>
+                <p>On the main menu, you'll see the following game modes:</p>
+                <h3><code>play</code></h3>
+                <p>Play today's Wordle.</p>
+                <h3><code>random</code></h3>
+                <p>Play a random selection from the 2,317 possible solutions.</p>
+                <p>
+                    The solution list runs until October 20, 2027. After that, 
+                    this will be the default game mode that is run when you 
+                    enter <code>play</code>.
+                </p>
+                <h3><code>date</code></h3>
+                <p>
+                    Enter a date between June 19, 2021 and October 20, 2027 in 
+                    <code>YYYYMMDD</code> format.
+                </p>
+                <h3><code>help</code></h3>
+                <p>I think you know what this one does!</p>
+                <h3><code>quit</code></h3>
+                <p>Quit the program. See you tomorrow!</p>
+            </article>
+        </div>
+        <div class="col right">
+            <div class="box pad">
+                <h2>Quick Reference</h2>
+                <p><code>O</code> = Letter is correct.</p>
+                <p><code>X</code> = Letter appears in solution word, but is not in the right place.</p>
+                <p><code>-</code> = Letter does not appear in solution word at all.</p>
+            </div>
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="#how-to-play">How To Play</a></li>
+                <li><a href="#game-modes">Game Modes</a></li>
+            </ul>
+            <h2>See Also</h2>
+            <ul>
+                <li>
+                    <a href="https://github.com/shmaller/nicktionary" target="_blank">Source Code</a>
+                </li>
+                <li>
+                    <a href="https://nicholasboni.com" target="_blank">nicholasboni.com</a>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>
