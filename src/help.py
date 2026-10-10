@@ -2,6 +2,7 @@
 
 import os
 import webbrowser
+from pathlib import Path
 
 def help():
     '''Launches help webpage with default browser.
@@ -10,8 +11,8 @@ def help():
 
     Returns: None.
     '''
-    path = _get_current_path()
-    webbrowser.open(f'{path}/help.html')
+    uri = Path(_get_current_path(),'help.html').as_uri()
+    webbrowser.open(uri)
 
 def _get_current_path():
     '''Resolves source code filepath to launch help.html.
