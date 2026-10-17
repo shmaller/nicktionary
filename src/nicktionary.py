@@ -46,7 +46,7 @@ def play(wordle):
     i = 0
     won = False
     while i < 6:
-        guess = str_utils.prompt(f'GUESS #{i+1}: ')
+        guess = input(f'GUESS #{i+1}: ').upper().strip()
 
         if guess == 'QUIT':
             sys.exit(0)
@@ -57,11 +57,11 @@ def play(wordle):
             print('Invalid guess!')
             continue
 
+        evaluation = evaluate.evaluate_guess(guess,wordle)
         print(str_utils.pad_str(guess))
-        outstr = evaluate.evaluate_guess(guess,wordle)
-        print(outstr + '\n')
+        str_utils.crawl(evaluation + '\n\n')
 
-        if outstr == 'O O O O O':
+        if evaluation == 'O O O O O':
             won = True
             break
 
@@ -80,7 +80,7 @@ def play(wordle):
     
     time.sleep(3)
     print('\nRun me tomorrow to play again!')
-    time.sleep(3)
+    time.sleep(2)
     input('\nPress ENTER to return to the main menu.')
     print('\nSee you tomorrow!')
     time.sleep(1)
@@ -119,24 +119,14 @@ def main():
     time.sleep(1.5)
 
     while True:
-        try:
-            response = str_utils.prompt(
-                str_utils.MAIN_MENU,
-                ['PLAY','RANDOM','DATE','HELP','QUIT']
-            )
-        except ValueError:
-            print('\nInvalid input.')
-            time.sleep(1)
-            continue
+        response = input(str_utils.MAIN_MENU).upper().strip()
 
         if response == 'PLAY':
             play(fileops.read_wordle('TODAY'))
-
         elif response == 'RANDOM':
             play(fileops.read_wordle('RANDOM'))
-        
         elif response == 'DATE':
-            str_date = str_utils.prompt("Enter a date in the format YYYYMMDD: ")
+            str_date = input("Enter a date in the format YYYYMMDD: ")
             try:
                 play(fileops.read_wordle('DATE',str_date))
             except ValueError:
@@ -145,13 +135,13 @@ def main():
                     '   and October 20, 2027, and in format YYYYMMDD.\n'
                 )
                 time.sleep(1)
-                continue
-        
         elif response == 'HELP':
             help.help()
-        
         elif response == 'QUIT':
             sys.exit(0)
+        else:
+            print('\nInvalid input.')
+            time.sleep(1)
 
 if __name__ == '__main__':
     config_logging()
