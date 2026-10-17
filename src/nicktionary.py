@@ -57,11 +57,11 @@ def play(wordle):
             print('Invalid guess!')
             continue
 
+        evaluation = evaluate.evaluate_guess(guess,wordle)
         print(str_utils.pad_str(guess))
-        outstr = evaluate.evaluate_guess(guess,wordle)
-        print(outstr + '\n')
+        str_utils.crawl(evaluation + '\n\n')
 
-        if outstr == 'O O O O O':
+        if evaluation == 'O O O O O':
             won = True
             break
 
