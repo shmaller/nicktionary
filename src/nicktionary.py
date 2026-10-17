@@ -58,7 +58,7 @@ def play(wordle):
             continue
 
         print(str_utils.pad_str(guess))
-        outstr = str_utils.pad_str(evaluate.evaluate_guess(guess,wordle))
+        outstr = evaluate.evaluate_guess(guess,wordle)
         print(outstr + '\n')
 
         if outstr == 'O O O O O':
