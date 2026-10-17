@@ -46,7 +46,7 @@ def play(wordle):
     i = 0
     won = False
     while i < 6:
-        guess = str_utils.prompt(f'GUESS #{i+1}: ')
+        guess = input(f'GUESS #{i+1}: ').upper().strip()
 
         if guess == 'QUIT':
             sys.exit(0)
@@ -126,7 +126,7 @@ def main():
         elif response == 'RANDOM':
             play(fileops.read_wordle('RANDOM'))
         elif response == 'DATE':
-            str_date = str_utils.prompt("Enter a date in the format YYYYMMDD: ")
+            str_date = input("Enter a date in the format YYYYMMDD: ")
             try:
                 play(fileops.read_wordle('DATE',str_date))
             except ValueError:
