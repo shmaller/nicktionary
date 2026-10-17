@@ -52,8 +52,7 @@ def play(wordle):
             sys.exit(0)
         elif guess == 'HELP':
             help.help()
-            continue
-
+            continue            
         if not _is_valid(guess):        
             print('Invalid guess!')
             continue
