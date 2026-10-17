@@ -80,7 +80,7 @@ def play(wordle):
     
     time.sleep(3)
     print('\nRun me tomorrow to play again!')
-    time.sleep(3)
+    time.sleep(2)
     input('\nPress ENTER to return to the main menu.')
     print('\nSee you tomorrow!')
     time.sleep(1)
