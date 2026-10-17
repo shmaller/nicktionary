@@ -119,22 +119,12 @@ def main():
     time.sleep(1.5)
 
     while True:
-        try:
-            response = str_utils.prompt(
-                str_utils.MAIN_MENU,
-                ['PLAY','RANDOM','DATE','HELP','QUIT']
-            )
-        except ValueError:
-            print('\nInvalid input.')
-            time.sleep(1)
-            continue
+        response = input(str_utils.MAIN_MENU).upper().strip()
 
         if response == 'PLAY':
             play(fileops.read_wordle('TODAY'))
-
         elif response == 'RANDOM':
             play(fileops.read_wordle('RANDOM'))
-        
         elif response == 'DATE':
             str_date = str_utils.prompt("Enter a date in the format YYYYMMDD: ")
             try:
@@ -145,13 +135,13 @@ def main():
                     '   and October 20, 2027, and in format YYYYMMDD.\n'
                 )
                 time.sleep(1)
-                continue
-        
         elif response == 'HELP':
             help.help()
-        
         elif response == 'QUIT':
             sys.exit(0)
+        else:
+            print('\nInvalid input.')
+            time.sleep(1)
 
 if __name__ == '__main__':
     config_logging()
