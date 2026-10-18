@@ -14,6 +14,7 @@ import help
 import str_utils
 import fileops
 import dictionary
+import exceptions
 
 def config_logging():
     '''Configure logging for main application.'''
@@ -53,9 +54,17 @@ def play(wordle):
             sys.exit(0)
         elif guess == 'HELP':
             help.help()
-            continue            
-        if not _is_valid(guess):        
-            print('Invalid guess!')
+            continue
+        try:
+            _is_valid(guess)
+        except exceptions.GuessWrongLength:
+            print('Guess must be a five-letter word!')
+            continue
+        except (exceptions.GuessNotAlphaNumeric, exceptions.NumberInGuess):
+            print('Letters only!')
+            continue
+        except exceptions.GuessnNotInDictionary:
+            print("That word's not in the dictionary!")
             continue
 
         evaluation = evaluate.evaluate_guess(guess,wordle)
@@ -98,17 +107,15 @@ def _is_valid(guess):
     - False otherwise.
     '''
     if len(guess) != 5:
-        return False
+        raise exceptions.GuessWrongLength()
     if not guess.isalnum():
-        return False
+        raise exceptions.GuessNotAlphaNumeric()
     for i in range(10):
         if str(i) in guess:
-            return False
+            raise exceptions.NumberInGuess()
     if not dictionary.in_dictionary(guess):
-        return False
+        raise exceptions.GuessnNotInDictionary()
     
-    return True
-
 def main():
     '''Main loop: Prompts user input for game mode, then plays game.
 
