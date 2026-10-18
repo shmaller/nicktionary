@@ -67,24 +67,6 @@ def print_wordle_date_header(wordle_date):
         )
     )
 
-def prompt(prompt, options=[]):
-    '''Prompt the user for input, optionally check against valid values.
-
-    Inputs:
-    - prompt (str): Prompt to show to user.
-    - options (list[str]) (optional): List of valid options.
-
-    Raises: ValueError if options AND user response not in options.
-
-    Returns: User response to prompt, stripped, uppercase (str).
-    '''
-    response = input(prompt).strip().upper()
-
-    if options and response not in options:
-        raise ValueError(f"Response '{response}' not in options {options}.")
-
-    return response
-
 def pad_str(str):
     '''Pads str with internal spaces.
 

@@ -13,6 +13,8 @@ import evaluate
 import help
 import str_utils
 import fileops
+import dictionary
+import exceptions
 
 def config_logging():
     '''Configure logging for main application.'''
@@ -46,23 +48,30 @@ def play(wordle):
     i = 0
     won = False
     while i < 6:
-        guess = str_utils.prompt(f'GUESS #{i+1}: ')
+        guess = input(f'GUESS #{i+1}: ').upper().strip()
 
         if guess == 'QUIT':
             sys.exit(0)
         elif guess == 'HELP':
             help.help()
             continue
-
-        if not _is_valid(guess):        
-            print('Invalid guess!')
+        try:
+            _is_valid(guess)
+        except exceptions.GuessWrongLength:
+            print('Guess must be a five-letter word!')
+            continue
+        except (exceptions.GuessNotAlphaNumeric, exceptions.NumberInGuess):
+            print('Letters only!')
+            continue
+        except exceptions.GuessnNotInDictionary:
+            print("That word's not in the dictionary!")
             continue
 
+        evaluation = evaluate.evaluate_guess(guess,wordle)
         print(str_utils.pad_str(guess))
-        outstr = str_utils.pad_str(evaluate.evaluate_guess(guess,wordle))
-        print(outstr + '\n')
+        str_utils.crawl(evaluation + '\n\n')
 
-        if outstr == 'O O O O O':
+        if evaluation == 'O O O O O':
             won = True
             break
 
@@ -81,7 +90,7 @@ def play(wordle):
     
     time.sleep(3)
     print('\nRun me tomorrow to play again!')
-    time.sleep(3)
+    time.sleep(2)
     input('\nPress ENTER to return to the main menu.')
     print('\nSee you tomorrow!')
     time.sleep(1)
@@ -98,15 +107,15 @@ def _is_valid(guess):
     - False otherwise.
     '''
     if len(guess) != 5:
-        return False
+        raise exceptions.GuessWrongLength()
     if not guess.isalnum():
-        return False
+        raise exceptions.GuessNotAlphaNumeric()
     for i in range(10):
         if str(i) in guess:
-            return False
+            raise exceptions.NumberInGuess()
+    if not dictionary.in_dictionary(guess):
+        raise exceptions.GuessnNotInDictionary()
     
-    return True
-
 def main():
     '''Main loop: Prompts user input for game mode, then plays game.
 
@@ -120,24 +129,14 @@ def main():
     time.sleep(1.5)
 
     while True:
-        try:
-            response = str_utils.prompt(
-                str_utils.MAIN_MENU,
-                ['PLAY','RANDOM','DATE','HELP','QUIT']
-            )
-        except ValueError:
-            print('\nInvalid input.')
-            time.sleep(1)
-            continue
+        response = input(str_utils.MAIN_MENU).upper().strip()
 
         if response == 'PLAY':
             play(fileops.read_wordle('TODAY'))
-
         elif response == 'RANDOM':
             play(fileops.read_wordle('RANDOM'))
-        
         elif response == 'DATE':
-            str_date = str_utils.prompt("Enter a date in the format YYYYMMDD: ")
+            str_date = input("Enter a date in the format YYYYMMDD: ")
             try:
                 play(fileops.read_wordle('DATE',str_date))
             except ValueError:
@@ -146,13 +145,13 @@ def main():
                     '   and October 20, 2027, and in format YYYYMMDD.\n'
                 )
                 time.sleep(1)
-                continue
-        
         elif response == 'HELP':
             help.help()
-        
         elif response == 'QUIT':
             sys.exit(0)
+        else:
+            print('\nInvalid input.')
+            time.sleep(1)
 
 if __name__ == '__main__':
     config_logging()

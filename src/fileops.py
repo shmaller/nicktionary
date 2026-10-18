@@ -1,4 +1,4 @@
-'''Methods to interact with the solution file.'''
+'''Methods to get current filepath and interact with the solution file.'''
 
 import os
 import sys
@@ -6,6 +6,7 @@ import datetime
 import textwrap
 import random
 import logging
+from pathlib import Path
 
 import str_utils
 
@@ -13,6 +14,35 @@ NUMBER_OF_WORDLES = 2315
 START_DATE = datetime.date(2021, 6, 19) # first date in wordle_list
 
 logger = logging.getLogger(__name__)
+
+def get_path(filename):
+    '''Resolves source code filepath to launch help.html.
+
+    Inputs: filename (str): Name of file whose path to get.
+
+    Returns: Absolute filepath to specified file.
+    '''
+    current_path = os.path.realpath(filename)
+    return os.path.dirname(current_path)
+
+def get_uri(filename):
+    '''Returns path of current file as URI.
+
+    Inputs: File whose URI to get.
+
+    Returns: URI of calling file.
+    '''
+    return Path(get_path(filename),filename).as_uri()
+
+def get_all_wordles():
+    '''Returns list of all solutions.'''
+    with open('wordle_list.txt') as f:
+        lines = f.readlines()
+    wordles = []
+    for line in lines:
+        wordles.append(line.split()[-1])
+    
+    return wordles
 
 def check_for_wordle_file():
     '''Aborts execution if solution list not found in this directory.'''
