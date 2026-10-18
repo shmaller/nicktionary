@@ -13,6 +13,7 @@ import evaluate
 import help
 import str_utils
 import fileops
+import dictionary
 
 def config_logging():
     '''Configure logging for main application.'''
@@ -103,6 +104,8 @@ def _is_valid(guess):
     for i in range(10):
         if str(i) in guess:
             return False
+    if not dictionary.in_dictionary(guess):
+        return False
     
     return True
 
