@@ -1,5 +1,5 @@
-'''Utility to split Webster's dictionary into separate files by first letter
-for faster use when checking guesses.
+'''Dictionary check for guesses; utility to split Webster's dictionary 
+into separate files by first letter for faster use when checking guesses.
 
 Webster's dictionary in JSON format downloaded from here:
 https://github.com/matthewreagan/WebstersEnglishDictionary

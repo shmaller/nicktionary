@@ -1,4 +1,4 @@
-'''Methods to interact with the solution file.'''
+'''Methods to get current filepath and interact with the solution file.'''
 
 import os
 import sys
