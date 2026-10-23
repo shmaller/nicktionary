@@ -59,9 +59,9 @@ def generate_wordle_date_header(wordle_date):
 
     Input: wordle_date (str): Date corresponding to Wordle solution.
 
-    Returns: None.
+    Returns: Header string.
     '''
-    print(dedent(
+    return dedent(
         f"""
         Playing Wordle from {wordle_date}.
         ---------------------------------------------------------------------------"""
