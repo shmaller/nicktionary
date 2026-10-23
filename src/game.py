@@ -5,6 +5,7 @@ import str_utils
 import exceptions
 import dictionary
 import evaluate
+import help
 from game_stat import Stat
 
 class Game:
