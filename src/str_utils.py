@@ -35,6 +35,7 @@ MAIN_MENU = dedent(
 
 IN_GAME_INSTRUCTIONS = dedent(
     """
+    Type 'letters' to see which letters are still valid.
     Type 'help' to read the rules of the game.
     Type 'quit' at any time to end the game.
     """
