@@ -1,8 +1,5 @@
 '''Tracked and sharable game stats.'''
 
-import json
-import datetime
-
 class Stat:
     '''Stat object that tracks a single day's results.
     
