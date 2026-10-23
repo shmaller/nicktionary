@@ -85,7 +85,7 @@ class Game:
             time.sleep(1)
             print('Oh no!...')
             time.sleep(2)
-            print(f'\nYou lost. The word was {wordle}.')
+            print(f'\nYou lost. The word was {self.wordle}.')
         
         time.sleep(3)
         print(f"\nHere's your results code:\n\n{self.stat.share_code()}")
