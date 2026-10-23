@@ -1,10 +1,13 @@
 import json
+import logging
 
 import fileops
 import str_utils
 from game_stat import Stat
 
 CURRENT_PATH = fileops.get_path(__file__)
+
+logger = logging.getLogger(__name__)
 
 class StatsManager:
     '''Container class that holds and manages many game_stat.Stat
@@ -19,7 +22,7 @@ class StatsManager:
         try:
             self._load(self.filename)
         except (FileNotFoundError, json.decoder.JSONDecodeError):
-            print('No user stats found, starting new stats count.')
+            logger.warning('No user stats found, starting new stats count.')
             self.save()
                 
     def _load(self, filename):
