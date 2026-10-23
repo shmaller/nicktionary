@@ -8,6 +8,7 @@ import logging
 from pathlib import Path
 
 import str_utils
+import exceptions
 
 NUMBER_OF_WORDLES = 2315
 START_DATE = datetime.date(2021, 6, 19) # first date in wordle_list
@@ -63,7 +64,6 @@ def read_wordle(date):
 
     Inputs:
     - option (str): One of 'today', 'random', 'date'.
-    - indate (str) (required for 'date'): Specific date to play.
 
     Returns: Solution word (str)
     '''
@@ -78,8 +78,8 @@ def read_wordle(date):
                 break
 
     if not wordle:
-        print("\nToday's date not found. Choosing a random date.")
-        return read_wordle('RANDOM')
+        logger.warning(f'Wordle not found for date {date}.')
+        raise exceptions.WordleNotFound()
 
     return wordle
 
