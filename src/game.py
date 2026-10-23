@@ -5,13 +5,13 @@ import str_utils
 import exceptions
 import dictionary
 import evaluate
-# from game_stat import Stat
+from game_stat import Stat
 
 class Game:
     def __init__(self, date, wordle):
         self.date = date
         self.wordle = wordle
-        # self.stat = Stat(date)
+        self.stat = Stat(date)
         self.won = False
 
     def play(self):
@@ -48,7 +48,7 @@ class Game:
                 continue
 
             evaluation = evaluate.evaluate_guess(guess,self.wordle)
-            # self.stat.add_guess(i,evaluation)
+            self.stat.add_guess(i,evaluation)
 
             print(str_utils.pad_str(guess))
             str_utils.crawl(evaluation + '\n\n')
