@@ -5,7 +5,9 @@ import str_utils
 import exceptions
 import dictionary
 import evaluate
+import help
 from game_stat import Stat
+from valid_letters import ValidLetters
 
 class Game:
     '''Represents a single Nicktionary playthrough. 
@@ -33,6 +35,7 @@ class Game:
         print(str_utils.IN_GAME_INSTRUCTIONS)
 
         won = False
+        valid_letters = ValidLetters()
         i = 1 # 1-index makes for prettier display
         while i < 7:
             guess = input(f'GUESS #{i}: ').upper().strip()
@@ -41,6 +44,10 @@ class Game:
                 sys.exit(0)
             elif guess == 'HELP':
                 help.help()
+                continue
+            elif guess == 'LETTERS':
+                print(f'Remaining letters:\n{valid_letters.letters}')
+                print(f'Eliminated letters:\n{valid_letters.eliminated}')
                 continue
 
             try:
@@ -55,7 +62,9 @@ class Game:
                 print("That word's not in the dictionary!")
                 continue
 
-            evaluation = evaluate.evaluate_guess(guess,self.wordle)
+            evaluation = evaluate.evaluate_guess(
+                guess, self.wordle, valid_letters
+            )
             self.stat.add_guess(i,evaluation)
 
             print(str_utils.pad_str(guess))
