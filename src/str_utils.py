@@ -27,6 +27,7 @@ MAIN_MENU = dedent(
     random: Play a word from a random date.
     date: Play a word from a specific date.
     help: Read the rules of the game.
+    stats: See your playing statistics.
     quit: Exit the program.
 
     """
@@ -34,6 +35,7 @@ MAIN_MENU = dedent(
 
 IN_GAME_INSTRUCTIONS = dedent(
     """
+    Type 'letters' to see which letters are still valid.
     Type 'help' to read the rules of the game.
     Type 'quit' at any time to end the game.
     """
@@ -53,18 +55,49 @@ WORDLE_LIST_NOT_FOUND = dedent(
     """
 )
 
-def print_wordle_date_header(wordle_date):
+def generate_wordle_date_header(wordle_date):
     '''Prints to the console which date has been chosen for the Wordle solution.
 
     Input: wordle_date (str): Date corresponding to Wordle solution.
 
-    Returns: None.
+    Returns: Header string.
     '''
-    print(dedent(
+    return dedent(
         f"""
         Playing Wordle from {wordle_date}.
         ---------------------------------------------------------------------------"""
-        )
+    )
+
+def gen_stats_breakdown_str(play_count, stats_breakdown):
+    '''Generates stats breakdown string for stats_manager.StatsManager.display().
+
+    Inputs:
+    - play_count (int): Total number of times game played.
+    - stats_breakdown (dict[int, int]): Dictionary of how many times each 
+        number of guesses was required to reach the solution 
+        (e.g., 3 (guesses): 5 (instances of 3 guesses)).
+
+    Returns: Formatted string.
+    '''
+    return dedent(
+        f'''\
+
+        You've played {play_count} times.
+
+        Here's how many guesses it's taken you to get the answer:
+
+        1: {stats_breakdown[1]}
+        2: {stats_breakdown[2]}
+        3: {stats_breakdown[3]}
+        4: {stats_breakdown[4]}
+        5: {stats_breakdown[5]}
+        6: {stats_breakdown[6]}
+
+        Won: {stats_breakdown['won']}
+        Lost: {stats_breakdown['lost']}
+
+        (ENTER to continue)
+        '''
     )
 
 def pad_str(str):

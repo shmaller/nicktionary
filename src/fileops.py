@@ -3,12 +3,12 @@
 import os
 import sys
 import datetime
-import textwrap
 import random
 import logging
 from pathlib import Path
 
 import str_utils
+import exceptions
 
 NUMBER_OF_WORDLES = 2315
 START_DATE = datetime.date(2021, 6, 19) # first date in wordle_list
@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 def get_path(filename):
     '''Resolves source code filepath to launch help.html.
 
-    Inputs: filename (str): Name of file whose path to get.
+    Inputs: filename (str): Name of file whose path to get (usually __file__).
 
     Returns: Absolute filepath to specified file.
     '''
@@ -59,39 +59,36 @@ def _resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-def read_wordle(option, indate=''):
+def read_wordle(date):
     '''Reads solution word from given game mode from solution file.
 
     Inputs:
     - option (str): One of 'today', 'random', 'date'.
-    - indate (str) (required for 'date'): Specific date to play.
 
     Returns: Solution word (str)
     '''
-    wordle_date = _determine_wordle_date(option, indate)
     wordle = ''
     
     with open(_resource_path('wordle_list.txt')) as f:
         for line in f:
             line_list = line.split()
             filedate = str_utils.pad_str(line_list[0:3])
-            if filedate == wordle_date:
+            if filedate == date:
                 wordle = line_list[-1]
                 break
 
     if not wordle:
-        print("\nToday's date not found. Choosing a random date.")
-        return read_wordle('RANDOM')
-
-    str_utils.print_wordle_date_header(wordle_date)
+        logger.warning(f'Wordle not found for date {date}.')
+        raise exceptions.WordleNotFound()
 
     return wordle
 
-def _determine_wordle_date(option, indate):
+def determine_wordle_date(option, indate=''):
     '''
     Inputs:
     - option (str): User-requested game mode.
-    - indate (str): Requested date. Used for 'DATE' mode. Must be 8 chars.
+    - indate (str, optional): Requested date. Required for 'DATE' mode. 
+        Must be 8 chars.
 
     Raises: 
     - ValueError if indate not in valid date range.
