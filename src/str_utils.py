@@ -54,7 +54,7 @@ WORDLE_LIST_NOT_FOUND = dedent(
     """
 )
 
-def print_wordle_date_header(wordle_date):
+def generate_wordle_date_header(wordle_date):
     '''Prints to the console which date has been chosen for the Wordle solution.
 
     Input: wordle_date (str): Date corresponding to Wordle solution.
