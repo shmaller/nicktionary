@@ -59,7 +59,7 @@ def _resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-def read_wordle(option, indate=''):
+def read_wordle(date):
     '''Reads solution word from given game mode from solution file.
 
     Inputs:
@@ -68,14 +68,13 @@ def read_wordle(option, indate=''):
 
     Returns: Solution word (str)
     '''
-    wordle_date = _determine_wordle_date(option, indate)
     wordle = ''
     
     with open(_resource_path('wordle_list.txt')) as f:
         for line in f:
             line_list = line.split()
             filedate = str_utils.pad_str(line_list[0:3])
-            if filedate == wordle_date:
+            if filedate == date:
                 wordle = line_list[-1]
                 break
 
@@ -83,11 +82,9 @@ def read_wordle(option, indate=''):
         print("\nToday's date not found. Choosing a random date.")
         return read_wordle('RANDOM')
 
-    str_utils.print_wordle_date_header(wordle_date)
-
     return wordle
 
-def _determine_wordle_date(option, indate):
+def determine_wordle_date(option, indate=''):
     '''
     Inputs:
     - option (str): User-requested game mode.
