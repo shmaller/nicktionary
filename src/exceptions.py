@@ -9,3 +9,6 @@ class NumberInGuess(Exception):
 
 class GuessnNotInDictionary(Exception):
     pass
+
+class WordleNotFound(Exception):
+    pass

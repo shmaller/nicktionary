@@ -8,6 +8,7 @@ import logging
 from pathlib import Path
 
 import str_utils
+import exceptions
 
 NUMBER_OF_WORDLES = 2315
 START_DATE = datetime.date(2021, 6, 19) # first date in wordle_list
@@ -17,7 +18,7 @@ logger = logging.getLogger(__name__)
 def get_path(filename):
     '''Resolves source code filepath to launch help.html.
 
-    Inputs: filename (str): Name of file whose path to get.
+    Inputs: filename (str): Name of file whose path to get (usually __file__).
 
     Returns: Absolute filepath to specified file.
     '''
@@ -63,7 +64,6 @@ def read_wordle(date):
 
     Inputs:
     - option (str): One of 'today', 'random', 'date'.
-    - indate (str) (required for 'date'): Specific date to play.
 
     Returns: Solution word (str)
     '''
@@ -78,8 +78,8 @@ def read_wordle(date):
                 break
 
     if not wordle:
-        print("\nToday's date not found. Choosing a random date.")
-        return read_wordle('RANDOM')
+        logger.warning(f'Wordle not found for date {date}.')
+        raise exceptions.WordleNotFound()
 
     return wordle
 
@@ -87,7 +87,8 @@ def determine_wordle_date(option, indate=''):
     '''
     Inputs:
     - option (str): User-requested game mode.
-    - indate (str): Requested date. Used for 'DATE' mode. Must be 8 chars.
+    - indate (str, optional): Requested date. Required for 'DATE' mode. 
+        Must be 8 chars.
 
     Raises: 
     - ValueError if indate not in valid date range.

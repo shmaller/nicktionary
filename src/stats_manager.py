@@ -1,10 +1,13 @@
 import json
+import logging
 
 import fileops
 import str_utils
 from game_stat import Stat
 
 CURRENT_PATH = fileops.get_path(__file__)
+
+logger = logging.getLogger(__name__)
 
 class StatsManager:
     '''Container class that holds and manages many game_stat.Stat
@@ -19,7 +22,7 @@ class StatsManager:
         try:
             self._load(self.filename)
         except (FileNotFoundError, json.decoder.JSONDecodeError):
-            print('No user stats found, starting new stats count.')
+            logger.warning('No user stats found, starting new stats count.')
             self.save()
                 
     def _load(self, filename):
@@ -27,7 +30,7 @@ class StatsManager:
         For each date, create a Stat object and store it in self.stats.
 
         Inputs:
-            - filename (str): Filename to load.
+        - filename (str): Filename to load.
 
         Returns: None.
         '''
@@ -42,7 +45,7 @@ class StatsManager:
         '''Save stats log to JSON file in current directory.
 
         Inputs:
-            - filename (str) (optional): Filename to save.
+        - filename (str, optional): Filename to save.
 
         Returns: None.
         '''
@@ -53,7 +56,7 @@ class StatsManager:
         '''Add a new game_stat.Stat object to storage dictionary.
 
         Inputs:
-            - stat (game_stat.Stat): Stat object representing single game play
+        - stat (game_stat.Stat): Stat object representing single game play
 
         Returns: None.
         '''

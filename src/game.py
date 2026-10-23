@@ -16,7 +16,7 @@ class Game:
     Inputs:
     - date (str): Date of desired solution word 
         (from fileops.determine_wordle_date)
-    - wordle (str): Soltuion word.
+    - wordle (str): Solution word.
     '''
     def __init__(self, date, wordle):
         self.date = date
@@ -27,7 +27,7 @@ class Game:
     def play(self):
         '''Evaluates user guesses against solution word, prints progress to console.
 
-        Input: wordle (str): Solution word
+        Inputs: None.
 
         Returns: None.
         '''

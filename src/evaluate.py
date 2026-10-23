@@ -12,6 +12,8 @@ def evaluate_guess(guess, answer, valid_letters):
     Inputs:
     - guess (str): User's guess at the solution
     - answer (str): The solution word.
+    - valid_letters (valid_letters.ValidLetters): ValidLetters object
+        to track which guessed letters are still valid.
 
     Returns: Evaluation string (str), e.g., 'O X - O X'
     '''

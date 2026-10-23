@@ -12,6 +12,7 @@ from logging.handlers import RotatingFileHandler
 import help
 import str_utils
 import fileops
+import exceptions
 from game import Game
 from stats_manager import StatsManager
 
@@ -52,7 +53,11 @@ def main():
         response = input(str_utils.MAIN_MENU).upper().strip()
 
         if response == 'PLAY':
-            date = fileops.determine_wordle_date('TODAY')
+            try:
+                date = fileops.determine_wordle_date('TODAY')
+            except exceptions.WordleNotFound:
+                print(f'Wordle not found for date {date}. Choosing random date.')
+                date = fileops.determine_wordle_date('RANDOM')
         elif response == 'RANDOM':
             date = fileops.determine_wordle_date('RANDOM')
         elif response == 'DATE':

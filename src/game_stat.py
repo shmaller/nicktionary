@@ -4,7 +4,7 @@ class Stat:
     '''Stat object that tracks a single game's results.
     
     Inputs:
-        - date (str): Date for this stat
+    - date (str): Date for this stat
     '''
     def __init__(self, date):
         self.date = date
@@ -44,7 +44,7 @@ class Stat:
         '''Loads dictionary data into this object's attributes.
 
         Inputs:
-            - dict (dict): Dictionary with keys 'date', 'eval_log', 'won'
+        - dict (dict): Dictionary with keys 'date', 'eval_log', 'won'
 
         Returns: None.
         '''
