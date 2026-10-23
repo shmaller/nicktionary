@@ -117,6 +117,15 @@ def check_solutions_against_dictionary():
             print(f'{word} not found in dictionary. #{not_in}')
 
 def expand_dictionary(words_file):
+    '''Add words from a file to the game's dictionaries.
+    Obsolete as designed for JSON.
+    TODO: Refactor for txt.
+
+    Inputs:
+    - words_file: Text file with one word per line.
+
+    Returns: None.
+    '''
     with open(words_file) as f:
         lines = f.readlines()
     for letter in ALPHABET:
@@ -134,6 +143,12 @@ def expand_dictionary(words_file):
             json.dump(dic, f, indent=2)
 
 def convert_jsons_to_txt():
+    '''One-time utility converting dictionary JSONs to txt.
+
+    Inputs: None.
+
+    Returns: None.
+    '''
     for letter in ALPHABET:
         json_file = f'dictionaries/{letter}.json'
         txt_file = f'dictionaries/{letter}.txt'

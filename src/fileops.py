@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 def get_path(filename):
     '''Resolves source code filepath to launch help.html.
 
-    Inputs: filename (str): Name of file whose path to get.
+    Inputs: filename (str): Name of file whose path to get (usually __file__).
 
     Returns: Absolute filepath to specified file.
     '''
@@ -87,7 +87,8 @@ def determine_wordle_date(option, indate=''):
     '''
     Inputs:
     - option (str): User-requested game mode.
-    - indate (str): Requested date. Used for 'DATE' mode. Must be 8 chars.
+    - indate (str, optional): Requested date. Required for 'DATE' mode. 
+        Must be 8 chars.
 
     Raises: 
     - ValueError if indate not in valid date range.

@@ -69,6 +69,16 @@ def generate_wordle_date_header(wordle_date):
     )
 
 def gen_stats_breakdown_str(play_count, stats_breakdown):
+    '''Generates stats breakdown string for stats_manager.StatsManager.display().
+
+    Inputs:
+    - play_count (int): Total number of times game played.
+    - stats_breakdown (dict[int, int]): Dictionary of how many times each 
+        number of guesses was required to reach the solution 
+        (e.g., 3 (guesses): 5 (instances of 3 guesses)).
+
+    Returns: Formatted string.
+    '''
     return dedent(
         f'''\
 

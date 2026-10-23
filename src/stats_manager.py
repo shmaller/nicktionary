@@ -30,7 +30,7 @@ class StatsManager:
         For each date, create a Stat object and store it in self.stats.
 
         Inputs:
-            - filename (str): Filename to load.
+        - filename (str): Filename to load.
 
         Returns: None.
         '''
@@ -45,7 +45,7 @@ class StatsManager:
         '''Save stats log to JSON file in current directory.
 
         Inputs:
-            - filename (str) (optional): Filename to save.
+        - filename (str, optional): Filename to save.
 
         Returns: None.
         '''
@@ -56,7 +56,7 @@ class StatsManager:
         '''Add a new game_stat.Stat object to storage dictionary.
 
         Inputs:
-            - stat (game_stat.Stat): Stat object representing single game play
+        - stat (game_stat.Stat): Stat object representing single game play
 
         Returns: None.
         '''
