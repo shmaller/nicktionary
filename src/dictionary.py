@@ -112,3 +112,20 @@ def check_solutions_against_dictionary():
         if not in_dictionary(word):
             not_in += 1
             print(f'{word} not found in dictionary. #{not_in}')
+
+def expand_dictionary(words_file):
+    with open(words_file) as f:
+        lines = f.readlines()
+    for letter in ALPHABET:
+        dict_file = f'dictionaries/{letter}.json'
+        with open(dict_file) as f:
+            dic = json.load(f)
+        for line in lines:
+            word = line.upper().strip()
+            first_letter = word[0]
+            if first_letter == letter:
+                if word not in dic:
+                    print(f'Adding {word} to {first_letter}.json')
+                    dic[word] = None
+        with open(dict_file, 'w') as f:
+            json.dump(dic, f, indent=2)
