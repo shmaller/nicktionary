@@ -13,7 +13,7 @@ import help
 import str_utils
 import fileops
 from game import Game
-import exceptions
+from stats_manager import StatsManager
 
 def config_logging():
     '''Configure logging for main application.'''
@@ -43,6 +43,7 @@ def main():
     Returns: None.
     '''
     fileops.check_for_wordle_file()
+    stats_manager = StatsManager()
     
     print(str_utils.SPLASH)
     time.sleep(1.5)
@@ -67,6 +68,10 @@ def main():
                 continue
         elif response == 'HELP':
             help.help()
+            continue
+        elif response == 'STATS':
+            stats_manager.display()
+            continue
         elif response == 'QUIT':
             sys.exit(0)
         else:
@@ -77,6 +82,9 @@ def main():
         wordle = fileops.read_wordle(date)
         game = Game(date, wordle)
         game.play()
+
+        stats_manager.add_stat(game.stat)
+        stats_manager.save()
 
 if __name__ == '__main__':
     config_logging()

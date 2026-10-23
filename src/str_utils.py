@@ -27,6 +27,7 @@ MAIN_MENU = dedent(
     random: Play a word from a random date.
     date: Play a word from a specific date.
     help: Read the rules of the game.
+    stats: See your playing statistics.
     quit: Exit the program.
 
     """
@@ -64,7 +65,28 @@ def print_wordle_date_header(wordle_date):
         f"""
         Playing Wordle from {wordle_date}.
         ---------------------------------------------------------------------------"""
-        )
+    )
+
+def gen_stats_breakdown_str(play_count, stats_breakdown):
+    return dedent(
+        f'''\
+
+        You've played {play_count} times.
+
+        Here's how many guesses it's taken you to get the answer:
+
+        1: {stats_breakdown[1]}
+        2: {stats_breakdown[2]}
+        3: {stats_breakdown[3]}
+        4: {stats_breakdown[4]}
+        5: {stats_breakdown[5]}
+        6: {stats_breakdown[6]}
+
+        Won: {stats_breakdown['won']}
+        Lost: {stats_breakdown['lost']}
+
+        (ENTER to continue)
+        '''
     )
 
 def pad_str(str):
