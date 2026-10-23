@@ -36,11 +36,14 @@ def _load_dictionary(guess):
     Returns: dictionary (dict): Dictionary with keys of all words starting
         with same letter as guess.
     '''
-    for letter in ALPHABET:
-        if guess.startswith(letter):
-            cwd = fileops.get_path(__file__)
-            with open(f'{cwd}/dictionaries/{letter}.json') as f:
-                return json.load(f)
+    cwd = fileops.get_path(__file__)
+    first_letter = guess[0]
+    dictionary = []
+    with open(f'{cwd}/dictionaries/{first_letter}.txt') as f:
+        for line in f:
+            dictionary.append(line.strip())
+    
+    return dictionary
 
 # -----
 # -- One-time use utility functions to build the game's dictionary. -----
@@ -129,3 +132,13 @@ def expand_dictionary(words_file):
                     dic[word] = None
         with open(dict_file, 'w') as f:
             json.dump(dic, f, indent=2)
+
+def convert_jsons_to_txt():
+    for letter in ALPHABET:
+        json_file = f'dictionaries/{letter}.json'
+        txt_file = f'dictionaries/{letter}.txt'
+        with open(json_file) as json_f:
+            dic = json.load(json_f)
+            with open(txt_file, 'w') as text_f:
+                for key in dic:
+                    text_f.write(key + '\n')
