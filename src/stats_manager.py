@@ -72,9 +72,28 @@ class StatsManager:
             stats_dict[stat_date] = stat.to_dict()
 
         return stats_dict
+    
+    def display(self):
+        '''Display stats to the user. Returns on ENTER.
 
-    def count_user_stats(self):
+        Inputs: None.
+
+        Returns: None.
+        '''
+        input(str_utils.gen_stats_breakdown_str(
+            self._count_user_stats(), self._gen_stats_breakdown()
+        ))
+
+    def _count_user_stats(self):
+        '''Count how many stats are stored.
+
+        Inputs: None.
+
+        Returns: Length of self.stats dictionary (int).
+        '''
         return len(self.stats)
+
+    def _gen_stats_breakdown(self):
         '''Generate metrics for stats: how many wins/losses, 
         how many guesses it has taken to win the game, 
         how many times played overall.
@@ -101,17 +120,4 @@ class StatsManager:
                 guess_breakdown[i] = 0
 
         return guess_breakdown
-
-    def today(self):
-        date = datetime.date.today().strftime('%D')
-        try:
-            return self.stats[date]
-        except KeyError:
-            print("Looks like you haven't played yet today.")
-            return None
     
-    def display(self):
-        bd = self.gen_stats_breakdown()
-        input(str_utils.gen_stats_breakdown_str(
-            self.count_user_stats(), self.gen_stats_breakdown()
-        ))

@@ -48,3 +48,7 @@ class Stat:
 
         Returns: None.
         '''
+        self.date = dict['date']
+        self.eval_log = dict['eval_log']
+        self.won = dict['won']
+        self.guess_count = len(self.eval_log)
