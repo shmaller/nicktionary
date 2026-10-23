@@ -8,6 +8,14 @@ import evaluate
 from game_stat import Stat
 
 class Game:
+    '''Represents a single Nicktionary playthrough. 
+        Tracks stats in a game_stat.Stat object.
+
+    Inputs:
+    - date (str): Date of desired solution word 
+        (from fileops.determine_wordle_date)
+    - wordle (str): Soltuion word.
+    '''
     def __init__(self, date, wordle):
         self.date = date
         self.wordle = wordle

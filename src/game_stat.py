@@ -1,11 +1,10 @@
 '''Tracked and sharable game stats.'''
 
 class Stat:
-    '''Stat object that tracks a single day's results.
+    '''Stat object that tracks a single game's results.
     
     Inputs:
-        date (datetime.date): Date for this stat
-        guess_log (GuessLog): GuessLog object tracking evaluation by guess number.
+        - date (str): Date for this stat
     '''
     def __init__(self, date):
         self.date = date
@@ -14,12 +13,26 @@ class Stat:
         self.won = False
 
     def add_guess(self, guess_no, evaluation):
+        '''Logs an individual guess.
+
+        Inputs:
+        - guess_no (int): Which guess this was in the sequence (1-6)
+        - evaluation (str): Evaluation string for that guess (e.g., 'O X - - X')
+
+        Returns: None.
+        '''
         self.eval_log[guess_no] = evaluation
         self.guess_count = len(self.eval_log)
         if evaluation == 'O O O O O':
             self.won = True
 
     def to_dict(self):
+        '''Converts self to dictionary for saving and export.
+
+        Inputs: None.
+
+        Returns: Dictionary version of self.
+        '''
         return {
             'date': self.date,
             'guess_count': self.guess_count,
@@ -28,15 +41,10 @@ class Stat:
         }
 
     def load(self, dict):
-        try:
-            self.date = dict['date']
-            self.eval_log = dict['eval_log']
-            self.won = dict['won']
-            self.guess_count = len(self.eval_log)
-        except KeyError:
-            print('Error loading stat: data format not correct.')
-    
-    def print(self):
-        outstr = ''
-        for i in range(1,len(self.eval_log)):
-            outstr += f'{i}: {self.eval_log[i]}'
+        '''Loads dictionary data into this object's attributes.
+
+        Inputs:
+            - dict (dict): Dictionary with keys 'date', 'eval_log', 'won'
+
+        Returns: None.
+        '''
