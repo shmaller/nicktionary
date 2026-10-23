@@ -52,3 +52,16 @@ class Stat:
         self.eval_log = dict['eval_log']
         self.won = dict['won']
         self.guess_count = len(self.eval_log)
+
+    def share_code(self):
+        '''Generate a shareable result code from eval_log.
+
+        Inputs: None.
+
+        Returns: Formatted share string.
+        '''
+        outstr = ''
+        for i in self.eval_log:
+            outstr += f'{i}: {self.eval_log[i]}\n'
+
+        return outstr
