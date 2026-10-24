@@ -7,7 +7,7 @@ class ValidLetters:
     Inputs: None.
     '''
     def __init__(self):
-        self.letters = ALPHABET
+        self.letters = ALPHABET.copy()
         self.eliminated = []
 
     def remove(self, letter):
