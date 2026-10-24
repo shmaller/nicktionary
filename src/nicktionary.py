@@ -23,9 +23,11 @@ def config_logging():
         style = '{'
     )
 
-    os.makedirs('log', exist_ok = True)
+    cwd = fileops.get_path(__file__)
+    parent_dir = cwd[:cwd.find('src')]
+    os.makedirs(f'{parent_dir}log', exist_ok = True)
     file_handler = RotatingFileHandler(
-        filename = 'log/nicktionary.log',
+        filename = f'{parent_dir}log/nicktionary.log',
         maxBytes = 102400,
         backupCount = 3
     )
