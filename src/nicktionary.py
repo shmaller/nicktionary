@@ -8,6 +8,7 @@ import time
 import logging
 from logging import Formatter
 from logging.handlers import RotatingFileHandler
+from pathlib import Path
 
 import help
 import str_utils
@@ -23,11 +24,11 @@ def config_logging():
         style = '{'
     )
 
-    cwd = fileops.get_path(__file__)
-    parent_dir = cwd[:cwd.find('src')]
-    os.makedirs(f'{parent_dir}log', exist_ok = True)
+    project_dir = Path(__file__).resolve().parent.parent
+    log_dir = project_dir/'log'
+    os.makedirs(log_dir, exist_ok = True)
     file_handler = RotatingFileHandler(
-        filename = f'{parent_dir}log/nicktionary.log',
+        filename = f'{log_dir}/nicktionary.log',
         maxBytes = 102400,
         backupCount = 3
     )
