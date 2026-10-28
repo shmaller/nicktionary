@@ -112,6 +112,7 @@ class StatsManager:
                 guess_breakdown['won'] += 1
             else:
                 guess_breakdown['lost'] += 1
+                continue
             for i in range(1,7):
                 if stat.guess_count == i:
                     if i in guess_breakdown:
