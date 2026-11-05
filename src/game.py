@@ -18,9 +18,10 @@ class Game:
         (from fileops.determine_wordle_date)
     - wordle (str): Solution word.
     '''
-    def __init__(self, date, wordle):
+    def __init__(self, date, wordle, difficulty):
         self.date = date
         self.wordle = wordle
+        self.difficulty = difficulty.mode
         self.stat = Stat(date)
         self.won = False
 
