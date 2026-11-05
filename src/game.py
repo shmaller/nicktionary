@@ -62,9 +62,15 @@ class Game:
                 print("That word's not in the dictionary!")
                 continue
 
-            evaluation = evaluate.evaluate_guess(
-                guess, self.wordle, valid_letters
-            )
+            try:
+                evaluation = evaluate.evaluate_guess(
+                    guess, self.wordle, valid_letters
+                )
+            except exceptions.HardModeRule:
+                print("Hard mode active: You must use all the information available.\n"
+                "(See 'help' for details.)")
+                continue
+                
             self.stat.add_guess(i,evaluation)
 
             print(str_utils.pad_str(guess))

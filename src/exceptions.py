@@ -12,3 +12,6 @@ class GuessnNotInDictionary(Exception):
 
 class WordleNotFound(Exception):
     pass
+
+class HardModeRule(Exception):
+    pass

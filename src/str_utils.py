@@ -28,6 +28,7 @@ MAIN_MENU = dedent(
     date: Play a word from a specific date.
     help: Read the rules of the game.
     stats: See your playing statistics.
+    mode: Toggle between normal mode and hard mode.
     quit: Exit the program.
 
     """
