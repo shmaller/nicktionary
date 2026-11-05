@@ -10,8 +10,37 @@ Josh Wardle's original game Wordle was sold to a newspaper which abandoned his o
 
 ## Installation
 
-1. Clone this repository and `cd` into it
-2. `python3 src/nicktionary.py`
+### Prerequisites
+- Git and Python 3.x must be installed.
+
+### Download 
+
+Clone this repository:
+
+```bash
+mkdir ~/github 2> /dev/null
+git clone https://github.com/shmaller/nicktionary.git
+```
+
+### Run
+
+```bash
+python3 ~/github/nicktionary/src/nicktionary.py
+```
+
+### Recommended configuration: Add `nicktionary` command
+
+I recommend running `scripts/setup.sh` script. This adds the `nicktionary` command to your terminal.
+
+```bash
+bash ~/github/nicktionary/scripts/setup.sh
+```
+
+Afterwards you can run Nicktionary simply:
+
+```bash
+nicktionary
+```
 
 ## How to play
 
