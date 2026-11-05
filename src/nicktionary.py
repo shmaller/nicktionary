@@ -100,7 +100,7 @@ def main():
                 if game.complete:
                     stats_manager.add_stat(game.stat)
                     stats_manager.save()
-            except UnboundLocalError:
+            except UnboundLocalError: # interrupt received outside of game context
                 pass
 
 
