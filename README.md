@@ -19,6 +19,7 @@ Clone this repository:
 
 ```bash
 mkdir ~/github 2> /dev/null
+cd ~/github
 git clone https://github.com/shmaller/nicktionary.git
 ```
 
