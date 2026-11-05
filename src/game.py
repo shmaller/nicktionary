@@ -23,6 +23,7 @@ class Game:
         self.wordle = wordle
         self.stat = Stat(date)
         self.won = False
+        self.complete = False
 
     def play(self):
         '''Evaluates user guesses against solution word, prints progress to console.
@@ -76,6 +77,7 @@ class Game:
 
             i += 1
 
+        self.complete = True
         if won:
             time.sleep(0.5)
             str_utils.crawl('!!! W I N N E R !!!')
