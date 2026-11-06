@@ -36,7 +36,6 @@ from a single command:
 ```bash
 touch ~/.bashrc
 cat >> "$HOME/.bashrc" <<'EOF'
-unalias nicktionary 2>/dev/null
 nicktionary() {
   cd "$HOME/github/nicktionary" || return
   git pull || echo "Couldn't update; connection to GitHub failed."
