@@ -105,7 +105,7 @@ class Game:
             time.sleep(2)
             print(f'\nYou lost. The word was {self.wordle}.')
         
-        time.sleep(3)
+        time.sleep(2)
         print(f"\nHere's your results code:\n\n{self.stat.share_code()}")
         input('\nPress ENTER to return to the main menu.')
         print('\nRun me tomorrow to play again!')
