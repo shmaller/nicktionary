@@ -30,7 +30,7 @@ class Difficulty:
         new_mode = input("'NORMAL' or 'HARD': ").upper().strip()
         if not new_mode in ['NORMAL', 'HARD']:
             print('Invalid game mode.')
-            self.change_mode()
+            return self.change_mode()
 
         self.mode = new_mode
         self._save()
