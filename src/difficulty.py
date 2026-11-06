@@ -27,7 +27,8 @@ class Difficulty:
         self.mode = obj['mode']
         
     def change_mode(self):
-        new_mode = input("'NORMAL' or 'HARD': ").upper().strip()
+        print(f"\nYou're currently playing {self.mode} mode.")
+        new_mode = input("Select your game difficulty (NORMAL/HARD): ").upper().strip()
         if not new_mode in ['NORMAL', 'HARD']:
             print('Invalid game mode.')
             return self.change_mode()

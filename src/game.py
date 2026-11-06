@@ -119,11 +119,21 @@ class Game:
 def _is_valid(guess, hard_mode_sequence):
     '''Tests if guess meets basic validity check.
 
-    Input: guess (str): User guess to check.
+    Inputs: 
+    - guess (str): User guess to check.
+    - hard_mode_sequence (hard_mode_sequence.HardModeSequence): Sequence 
+        to check against (self.difficulty == 'HARD' only).
+        If self.difficulty == 'NORMAL', pass None here.
 
-    Returns:
-    - True if guess is valid.
-    - False otherwise.
+    Raises:
+    - exceptions.GuessWrongLength() if len(guess) != 5
+    - exceptions.GuessNotAlphaNumeric() if not guess.isalnum()
+    - exceptions.NumberInGuess() if a number is in the guess
+    - exceptions.GuessNotInDictionary() guess not in dictionary
+    - exceptions.HardModeRule if hard_mode_sequence is not None 
+        AND fails sequence.validate_guess()
+
+    Returns: None.
     '''
     if len(guess) != 5:
         raise exceptions.GuessWrongLength()
