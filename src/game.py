@@ -8,6 +8,7 @@ import evaluate
 import help
 from game_stat import Stat
 from valid_letters import ValidLetters
+from hard_mode_sequence import HardModeSequence
 
 class Game:
     '''Represents a single Nicktionary playthrough. 
@@ -17,6 +18,7 @@ class Game:
     - date (str): Date of desired solution word 
         (from fileops.determine_wordle_date)
     - wordle (str): Solution word.
+    - difficulty (str): Game difficulty ('NORMAL' or 'HARD').
     '''
     def __init__(self, date, wordle, difficulty):
         self.date = date
@@ -37,7 +39,12 @@ class Game:
 
         won = False
         valid_letters = ValidLetters()
-        i = 1 # 1-index makes for prettier display
+        if self.difficulty == 'HARD':
+            hard_mode_sequence = HardModeSequence()
+        else:
+            hard_mode_sequence = None
+        
+        i = 1
         while i < 7:
             guess = input(f'GUESS #{i}: ').upper().strip()
 
@@ -52,7 +59,7 @@ class Game:
                 continue
 
             try:
-                _is_valid(guess)
+                _is_valid(guess, hard_mode_sequence)
             except exceptions.GuessWrongLength:
                 print('Guess must be a five-letter word!')
                 continue
@@ -62,10 +69,15 @@ class Game:
             except exceptions.GuessnNotInDictionary:
                 print("That word's not in the dictionary!")
                 continue
+            except exceptions.HardModeRule:
+                print('HARD MODE: Your guess must make use of all the information\n'
+                "you've been given by previous evaluations. "
+                "Type 'help' for details.")
+                continue
 
             try:
                 evaluation = evaluate.evaluate_guess(
-                    guess, self.wordle, valid_letters
+                    guess, self.wordle, valid_letters, hard_mode_sequence
                 )
             except exceptions.HardModeRule:
                 print("Hard mode active: You must use all the information available.\n"
@@ -104,7 +116,7 @@ class Game:
         str_utils.crawl('love, N\n')
         time.sleep(1.25)
     
-def _is_valid(guess):
+def _is_valid(guess, hard_mode_sequence):
     '''Tests if guess meets basic validity check.
 
     Input: guess (str): User guess to check.
@@ -122,3 +134,5 @@ def _is_valid(guess):
             raise exceptions.NumberInGuess()
     if not dictionary.in_dictionary(guess):
         raise exceptions.GuessNotInDictionary()
+    if hard_mode_sequence is not None:
+        hard_mode_sequence.validate_guess(guess)
