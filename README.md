@@ -9,9 +9,41 @@ The game updates the Wordle every day until October 20, 2027. After that point, 
 Josh Wardle's original game Wordle was sold to a newspaper which abandoned his original word list. This game uses the original list, and so is equivalent to playing the old Wordle game on his website. The point of making this was 1. for fun, and 2. to keep Wordle "hard and weird".
 
 ## Installation
+### Prerequisites
+- Git and Python 3.x must be installed.
 
-1. Clone this repository and `cd` into it
-2. `python3 src/nicktionary.py`
+### Download 
+
+Clone this repository:
+
+```bash
+mkdir ~/github 2> /dev/null
+cd ~/github
+git clone https://github.com/shmaller/nicktionary.git
+```
+
+### Run
+
+```bash
+python3 ~/github/nicktionary/src/nicktionary.py
+```
+
+### Recommended configuration: Add `nicktionary` command
+
+I recommend adding the `nicktionary` command to your `.bashrc`, allowing you to run Nicktionary
+from a single command:
+
+```bash
+touch ~/.bashrc
+echo "alias nicktionary='cd ~/github/nicktionary && git pull && python3 src/nicktionary.py'" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Afterwards you can run Nicktionary simply:
+
+```bash
+nicktionary
+```
 
 ## How to play
 
