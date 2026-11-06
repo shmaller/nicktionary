@@ -56,9 +56,19 @@ class Difficulty:
         '''
         print(f"\nYou're currently playing {self.mode} mode.")
         new_mode = input("Select your game difficulty (NORMAL/HARD): ").upper().strip()
+
+        if new_mode == '':
+            print('\nDifficulty unchanged.')
+            time.sleep(1)
+            return
         if not new_mode in ['NORMAL', 'HARD']:
-            print('Invalid game mode.')
+            print('\nInvalid game mode.')
+            time.sleep(1)
             return self.change_mode()
+        if new_mode == self.mode:
+            print('\nDifficulty unchanged.')
+            time.sleep(1)
+            return
 
         self.mode = new_mode
         self._save()
