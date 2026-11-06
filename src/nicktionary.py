@@ -15,6 +15,7 @@ import str_utils
 import fileops
 import exceptions
 from game import Game
+from difficulty import Difficulty
 from stats_manager import StatsManager
 
 def config_logging():
@@ -48,6 +49,7 @@ def main():
     '''
     fileops.check_for_wordle_file()
     stats_manager = StatsManager()
+    difficulty = Difficulty()
     
     print(str_utils.SPLASH)
     time.sleep(1.5)
@@ -81,6 +83,9 @@ def main():
             elif response == 'STATS':
                 stats_manager.display()
                 continue
+            elif response == 'MODE':
+                difficulty.change_mode()
+                continue
             elif response == 'QUIT':
                 sys.exit(0)
             else:
@@ -89,7 +94,7 @@ def main():
                 continue
 
             wordle = fileops.read_wordle(date)
-            game = Game(date, wordle)
+            game = Game(date, wordle, difficulty.mode)
             game.play()
 
         except KeyboardInterrupt:
@@ -102,7 +107,6 @@ def main():
                     stats_manager.save()
             except UnboundLocalError: # interrupt received outside of game context
                 pass
-
 
 if __name__ == '__main__':
     config_logging()
