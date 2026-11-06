@@ -42,6 +42,8 @@ class Game:
 
             if guess == 'QUIT':
                 sys.exit(0)
+            elif guess == 'BACK':
+                return
             elif guess == 'HELP':
                 help.help()
                 continue
