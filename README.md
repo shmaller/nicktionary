@@ -35,8 +35,16 @@ from a single command:
 
 ```bash
 touch ~/.bashrc
-echo "alias nicktionary='python3 ~/github/nicktionary/src/nicktionary.py'" >> ~/.bashrc
-source ~/.bashrc
+cat >> "$HOME/.bashrc" <<'EOF'
+unalias nicktionary 2>/dev/null
+nicktionary() {
+  cd "$HOME/github/nicktionary" || return
+  git pull || echo "Couldn't update; connection to GitHub failed."
+  python3 src/nicktionary.py "$@"
+}
+EOF
+
+source "$HOME/.bashrc"
 ```
 
 Afterwards you can run Nicktionary simply:
