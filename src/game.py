@@ -26,6 +26,7 @@ class Game:
         self.difficulty = difficulty
         self.stat = Stat(date)
         self.won = False
+        self.complete = False
 
     def play(self):
         '''Evaluates user guesses against solution word, prints progress to console.
@@ -50,6 +51,8 @@ class Game:
 
             if guess == 'QUIT':
                 sys.exit(0)
+            elif guess == 'BACK':
+                return
             elif guess == 'HELP':
                 help.help()
                 continue
@@ -95,6 +98,7 @@ class Game:
 
             i += 1
 
+        self.complete = True
         if won:
             time.sleep(0.5)
             str_utils.crawl('!!! W I N N E R !!!')

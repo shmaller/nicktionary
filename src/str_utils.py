@@ -38,6 +38,7 @@ IN_GAME_INSTRUCTIONS = dedent(
     """
     Type 'letters' to see which letters are still valid.
     Type 'help' to read the rules of the game.
+    Type 'back' to return to the main menu.
     Type 'quit' at any time to end the game.
     """
 )
