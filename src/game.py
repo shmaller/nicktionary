@@ -35,7 +35,7 @@ class Game:
 
         Returns: None.
         '''
-        print(str_utils.generate_wordle_date_header(self.date))
+        print(str_utils.generate_wordle_date_header(self.date, self.difficulty))
         print(str_utils.IN_GAME_INSTRUCTIONS)
 
         won = False
@@ -69,13 +69,14 @@ class Game:
             except (exceptions.GuessNotAlphaNumeric, exceptions.NumberInGuess):
                 print('Letters only!')
                 continue
-            except exceptions.GuessnNotInDictionary:
+            except exceptions.GuessNotInDictionary:
                 print("That word's not in the dictionary!")
                 continue
             except exceptions.HardModeRule:
                 print('HARD MODE: Your guess must make use of all the information\n'
                 "you've been given by previous evaluations. "
-                "Type 'help' for details.")
+                "Type 'help' for details.\n"
+                "See the Game Difficulty section.")
                 continue
 
             try:

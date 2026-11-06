@@ -57,16 +57,22 @@ WORDLE_LIST_NOT_FOUND = dedent(
     """
 )
 
-def generate_wordle_date_header(wordle_date):
+def generate_wordle_date_header(wordle_date, difficulty):
     '''Prints to the console which date has been chosen for the Wordle solution.
 
-    Input: wordle_date (str): Date corresponding to Wordle solution.
+    Inputs: 
+    - wordle_date (str): Date corresponding to Wordle solution.
+    - difficulty (str): 'NORMAL' or 'HARD'.
 
     Returns: Header string.
     '''
+    if difficulty == 'NORMAL':
+        hard_mode = ''
+    elif difficulty == 'HARD':
+        hard_mode = ' on HARD mode'
     return dedent(
         f"""
-        Playing Wordle from {wordle_date}.
+        Playing Wordle from {wordle_date}{hard_mode}.
         ---------------------------------------------------------------------------"""
     )
 
