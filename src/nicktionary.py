@@ -93,7 +93,7 @@ def main():
             continue
 
         wordle = fileops.read_wordle(date)
-        game = Game(date, wordle, difficulty)
+        game = Game(date, wordle, difficulty.mode)
         game.play()
 
         stats_manager.add_stat(game.stat)

@@ -21,7 +21,7 @@ class Game:
     def __init__(self, date, wordle, difficulty):
         self.date = date
         self.wordle = wordle
-        self.difficulty = difficulty.mode
+        self.difficulty = difficulty
         self.stat = Stat(date)
         self.won = False
 
