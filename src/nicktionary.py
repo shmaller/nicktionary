@@ -15,6 +15,7 @@ import str_utils
 import fileops
 import exceptions
 from game import Game
+from difficulty import Difficulty
 from stats_manager import StatsManager
 
 def config_logging():
@@ -48,51 +49,64 @@ def main():
     '''
     fileops.check_for_wordle_file()
     stats_manager = StatsManager()
+    difficulty = Difficulty()
     
     print(str_utils.SPLASH)
     time.sleep(1.5)
 
     while True:
-        response = input(str_utils.MAIN_MENU).upper().strip()
+        try:
+            response = input(str_utils.MAIN_MENU).upper().strip()
 
-        if response == 'PLAY':
-            try:
-                date = fileops.determine_wordle_date('TODAY')
-            except exceptions.WordleNotFound:
-                print(f'Wordle not found for date {date}. Choosing random date.')
+            if response == 'PLAY':
+                try:
+                    date = fileops.determine_wordle_date('TODAY')
+                except exceptions.WordleNotFound:
+                    print(f'Wordle not found for date {date}. Choosing random date.')
+                    date = fileops.determine_wordle_date('RANDOM')
+            elif response == 'RANDOM':
                 date = fileops.determine_wordle_date('RANDOM')
-        elif response == 'RANDOM':
-            date = fileops.determine_wordle_date('RANDOM')
-        elif response == 'DATE':
-            str_date = input("Enter a date in the format YYYYMMDD: ")
-            try:
-                date = fileops.determine_wordle_date('DATE',str_date)
-            except ValueError:
-                print(
-                    '\nTry again! Date must be between June 19, 2021\n'
-                    '   and October 20, 2027, and in format YYYYMMDD.\n'
-                )
+            elif response == 'DATE':
+                str_date = input("Enter a date in the format YYYYMMDD: ")
+                try:
+                    date = fileops.determine_wordle_date('DATE',str_date)
+                except ValueError:
+                    print(
+                        '\nTry again! Date must be between June 19, 2021\n'
+                        '   and October 20, 2027, and in format YYYYMMDD.\n'
+                    )
+                    time.sleep(1)
+                    continue
+            elif response == 'HELP':
+                help.help()
+                continue
+            elif response == 'STATS':
+                stats_manager.display()
+                continue
+            elif response == 'MODE':
+                difficulty.change_mode()
+                continue
+            elif response == 'QUIT':
+                sys.exit(0)
+            else:
+                print('\nInvalid input.')
                 time.sleep(1)
                 continue
-        elif response == 'HELP':
-            help.help()
-            continue
-        elif response == 'STATS':
-            stats_manager.display()
-            continue
-        elif response == 'QUIT':
-            sys.exit(0)
-        else:
-            print('\nInvalid input.')
-            time.sleep(1)
-            continue
 
-        wordle = fileops.read_wordle(date)
-        game = Game(date, wordle)
-        game.play()
+            wordle = fileops.read_wordle(date)
+            game = Game(date, wordle, difficulty.mode)
+            game.play()
 
-        stats_manager.add_stat(game.stat)
-        stats_manager.save()
+        except KeyboardInterrupt:
+            print("\nKeyboard interrupt detected. "
+            "Use the 'quit' command to quit the game.")
+        finally:
+            try:
+                if game.complete:
+                    stats_manager.add_stat(game.stat)
+                    stats_manager.save()
+            except UnboundLocalError: # interrupt received outside of game context
+                pass
 
 if __name__ == '__main__':
     config_logging()

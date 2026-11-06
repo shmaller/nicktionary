@@ -6,7 +6,7 @@ import str_utils
 
 STARTING_OUTSTR = '-----'
 
-def evaluate_guess(guess, answer, valid_letters):
+def evaluate_guess(guess, answer, valid_letters, hard_mode_sequence):
     '''Evaluates guess against solution word.
 
     Inputs:
@@ -14,6 +14,8 @@ def evaluate_guess(guess, answer, valid_letters):
     - answer (str): The solution word.
     - valid_letters (valid_letters.ValidLetters): ValidLetters object
         to track which guessed letters are still valid.
+    - hard_mode_sequence (hard_mode_sequence.HardModeSequence): Hard mode sequence 
+    to evaluate. If normal mode, pass None here.
 
     Returns: Evaluation string (str), e.g., 'O X - O X'
     '''
@@ -41,5 +43,8 @@ def evaluate_guess(guess, answer, valid_letters):
         if outstr[i] == '-':
             valid_letters.remove(guess[i])    
         i += 1
+
+    if hard_mode_sequence is not None:
+        hard_mode_sequence.update_sequence(guess, outstr)
 
     return str_utils.pad_str(outstr).strip()

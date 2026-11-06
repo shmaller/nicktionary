@@ -7,8 +7,11 @@ class GuessNotAlphaNumeric(Exception):
 class NumberInGuess(Exception):
     pass
 
-class GuessnNotInDictionary(Exception):
+class GuessNotInDictionary(Exception):
     pass
 
 class WordleNotFound(Exception):
+    pass
+
+class HardModeRule(Exception):
     pass
