@@ -35,7 +35,7 @@ from a single command:
 
 ```bash
 touch ~/.bashrc
-echo "alias nicktionary='cd ~/github/nicktionary && git pull && python3 src/nicktionary.py'" >> ~/.bashrc
+echo "alias nicktionary='python3 ~/github/nicktionary/src/nicktionary.py'" >> ~/.bashrc
 source ~/.bashrc
 ```
 
