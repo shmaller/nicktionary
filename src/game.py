@@ -81,7 +81,7 @@ class Game:
 
             evaluation = evaluate.evaluate_guess(
                 guess, self.wordle, valid_letters, hard_mode_sequence
-            )                
+            )
             self.stat.add_guess(i,evaluation)
 
             print(str_utils.pad_str(guess))
