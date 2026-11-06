@@ -17,7 +17,7 @@ class Difficulty:
         return {'mode': self.mode}
 
     def _save(self):
-        with open('settings.json', 'w') as f:
+        with open(self.filepath, 'w') as f:
             json.dump(self._to_dict(), f, indent=4)
 
     def _load(self):
