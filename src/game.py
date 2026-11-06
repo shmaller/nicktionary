@@ -121,4 +121,4 @@ def _is_valid(guess):
         if str(i) in guess:
             raise exceptions.NumberInGuess()
     if not dictionary.in_dictionary(guess):
-        raise exceptions.GuessnNotInDictionary()
+        raise exceptions.GuessNotInDictionary()
