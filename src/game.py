@@ -79,14 +79,10 @@ class Game:
                 "See the Game Difficulty section.")
                 continue
 
-            try:
-                evaluation = evaluate.evaluate_guess(
-                    guess, self.wordle, valid_letters, hard_mode_sequence
-                )
-            except exceptions.HardModeRule:
-                print("Hard mode active: You must use all the information available.\n"
-                "(See 'help' for details.)")
-                continue
+            evaluation = evaluate.evaluate_guess(
+                guess, self.wordle, valid_letters, hard_mode_sequence
+            )
+
                 
             self.stat.add_guess(i,evaluation)
 
