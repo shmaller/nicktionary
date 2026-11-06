@@ -66,10 +66,11 @@ def generate_wordle_date_header(wordle_date, difficulty):
 
     Returns: Header string.
     '''
-    if difficulty == 'NORMAL':
-        hard_mode = ''
-    elif difficulty == 'HARD':
+    if difficulty == 'HARD':
         hard_mode = ' on HARD mode'
+    else:
+        hard_mode = ''
+    
     return dedent(
         f"""
         Playing Wordle from {wordle_date}{hard_mode}.
