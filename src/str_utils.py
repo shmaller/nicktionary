@@ -10,7 +10,6 @@ SPLASH = dedent(
 
     Welcome to Nicktionary! Try to guess the word!
     This program replicates Josh Wardle\'s game Wordle.
-    It loads a new wordle every day, and is playable until October 20, 2027.
     Run this program every day to play a new word!
     """
 )
@@ -36,7 +35,7 @@ MAIN_MENU = dedent(
 
 IN_GAME_INSTRUCTIONS = dedent(
     """
-    Type 'letters' to see which letters are still valid.
+    Type 'letters' to see which letters you can rule out.
     Type 'help' to read the rules of the game.
     Type 'back' to return to the main menu.
     Type 'quit' at any time to end the game.
