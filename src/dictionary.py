@@ -23,9 +23,9 @@ def in_dictionary(guess):
     Returns: True if guess in dictionary, False otherwise.
     '''
     dictionary = _load_dictionary(guess)
-    if guess not in dictionary:
-        return False
-    return True
+    if guess in dictionary:
+        return True
+    return False
 
 def _load_dictionary(guess):
     '''Load from json file the dictionary starting with the same letter 
