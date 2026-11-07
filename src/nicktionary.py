@@ -92,7 +92,7 @@ def main():
             try:
                 wordle = fileops.read_wordle(date)
             except exceptions.WordleNotFound:
-                print(f'Wordle not found for date {date}. Choosing random date.')
+                print(f'\nWordle not found for date {date}. Choosing random date.')
                 date = fileops.determine_wordle_date('RANDOM')
                 wordle = fileops.read_wordle(date)
 
