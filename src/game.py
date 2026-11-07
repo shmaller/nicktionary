@@ -109,7 +109,7 @@ class Game:
         print(f"\nHere's your results code:\n\n{self.stat.share_code()}")
         input('\nPress ENTER to return to the main menu.')
         print('\nRun me tomorrow to play again!')
-        time.sleep(2)
+        time.sleep(1.25)
         print('\nSee you tomorrow!')
         time.sleep(1)
         str_utils.crawl('love, N\n')
