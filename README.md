@@ -28,22 +28,45 @@ git clone https://github.com/shmaller/nicktionary.git
 python3 ~/github/nicktionary/src/nicktionary.py
 ```
 
-### Recommended configuration: Add `nicktionary` command
+### Recommended one-time setup: Add `nicktionary` command to terminal
 
-I recommend adding the `nicktionary` command to your `.bashrc`, allowing you to run Nicktionary
-from a single command:
+I recommend adding the `nicktionary` command to your terminal configuration, allowing you to run Nicktionary
+from a single command. Copy and paste the appropriate command for your system into your terminal:
+
+#### Mac (zsh terminal)
+
+```bash
+touch ~/.zshrc
+cat >> ~/.zshrc <<'EOF'
+nicktionary() {
+  dir=$(pwd)
+  cd ~/github/nicktionary
+  git pull || echo "Couldn't update; connection to GitHub failed."
+  cd $dir
+  python3 ~/github/nicktionary/src/nicktionary.py
+}
+
+EOF
+
+source ~/.zshrc
+```
+
+#### Linux (bash terminal)
 
 ```bash
 touch ~/.bashrc
-cat >> "$HOME/.bashrc" <<'EOF'
+cat >> ~/.bashrc <<'EOF'
 nicktionary() {
-  cd "$HOME/github/nicktionary" || return
+  dir=$(pwd)
+  cd ~/github/nicktionary
   git pull || echo "Couldn't update; connection to GitHub failed."
-  python3 src/nicktionary.py "$@"
+  cd $dir
+  python3 ~/github/nicktionary/src/nicktionary.py
 }
+
 EOF
 
-source "$HOME/.bashrc"
+source ~/.bashrc
 ```
 
 Afterwards you can run Nicktionary simply:
