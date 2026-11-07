@@ -59,11 +59,7 @@ def main():
             response = input(str_utils.MAIN_MENU).upper().strip()
 
             if response == 'PLAY':
-                try:
-                    date = fileops.determine_wordle_date('TODAY')
-                except exceptions.WordleNotFound:
-                    print(f'Wordle not found for date {date}. Choosing random date.')
-                    date = fileops.determine_wordle_date('RANDOM')
+                date = fileops.determine_wordle_date('TODAY')
             elif response == 'RANDOM':
                 date = fileops.determine_wordle_date('RANDOM')
             elif response == 'DATE':
@@ -93,7 +89,13 @@ def main():
                 time.sleep(1)
                 continue
 
-            wordle = fileops.read_wordle(date)
+            try:
+                wordle = fileops.read_wordle(date)
+            except exceptions.WordleNotFound:
+                print(f'\nWordle not found for date {date}. Choosing random date.')
+                date = fileops.determine_wordle_date('RANDOM')
+                wordle = fileops.read_wordle(date)
+
             game = Game(date, wordle, difficulty.mode)
             game.play()
 
