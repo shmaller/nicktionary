@@ -40,6 +40,7 @@ touch ~/.zshrc
 cat >> ~/.zshrc <<'EOF'
 nicktionary() {
   dir=$(pwd)
+  echo "Checking for updates..."
   cd ~/github/nicktionary
   git pull || echo "Couldn't update; connection to GitHub failed."
   cd $dir
@@ -58,6 +59,7 @@ touch ~/.bashrc
 cat >> ~/.bashrc <<'EOF'
 nicktionary() {
   dir=$(pwd)
+  echo "Checking for updates..."
   cd ~/github/nicktionary
   git pull || echo "Couldn't update; connection to GitHub failed."
   cd $dir
